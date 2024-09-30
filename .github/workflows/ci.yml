@@ -62,7 +62,7 @@ jobs:
     permissions:
       contents: read
     env:
-      K3S_VERSION: v1.30.4+k3s1
+      K3S_VERSION: v1.31.1-k3s1
     steps:
       - name: Checkout
         uses: actions/checkout@v4
