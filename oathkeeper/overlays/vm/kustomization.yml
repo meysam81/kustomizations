@@ -1,0 +1,38 @@
+configMapGenerator:
+  - behavior: replace
+    files:
+      - config.yml=oathkeeper-server-config.yml
+    name: oathkeeper-config
+
+resources:
+  - ../../base
+  - vmservicescrape-oathkeeper.yml
+  - vmservicescrape-oathkeeper-maester.yml
+
+replacements:
+  - source:
+      kind: Service
+      name: oathkeeper-metrics
+      fieldPath: metadata.labels
+    targets:
+      - select:
+          kind: VMServiceScrape
+          name: oathkeeper
+        fieldPaths:
+          - spec.selector.matchLabels
+        options:
+          create: true
+  - source:
+      kind: Service
+      name: oathkeeper-maester-metrics
+      fieldPath: metadata.labels
+    targets:
+      - select:
+          kind: VMServiceScrape
+          name: oathkeeper-maester
+        fieldPaths:
+          - spec.selector.matchLabels
+        options:
+          create: true
+
+namespace: auth

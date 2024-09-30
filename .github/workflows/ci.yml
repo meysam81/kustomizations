@@ -63,6 +63,11 @@ jobs:
       contents: read
     env:
       K3S_VERSION: v1.31.1-k3s1
+    strategy:
+      fail-fast: false
+      matrix:
+        kustomization:
+          - oathkeeper/overlays/vm
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -72,6 +77,8 @@ jobs:
           version: ${{ env.K3S_VERSION }}
       - name: Verify k8s cluster
         run: kubectl get nodes
+      - name: Verify kustomization ${{ matrix.kustomization }}
+        run: kubectl apply -k ${{ matrix.kustomization }} --wait --timeout=5m
 
   ansible-lint:
     if: github.event_name == 'push' || github.event_name == 'pull_request'
