@@ -67,7 +67,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - kustomization: oathkeeper/overlays/prom
+          - kustomization: oathkeeper/overlays/vm
             namespace: auth
     steps:
       - name: Checkout
