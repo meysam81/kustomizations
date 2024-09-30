@@ -69,6 +69,7 @@ jobs:
         include:
           - kustomization: oathkeeper/overlays/vm
             namespace: auth
+            extra: https://github.com/VictoriaMetrics/operator/raw/refs/tags/v0.48.3/config/crd/overlay/crd.yaml
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -80,6 +81,9 @@ jobs:
         run: kubectl get nodes
       - name: Ensure namespace exists ${{ matrix.namespace }}
         run: kubectl create namespace ${{ matrix.namespace }} --dry-run=client -o yaml | kubectl apply -f -
+      - name: Create extras
+        if: matrix.extra
+        run: kubectl apply -f ${{ matrix.extra }} --server-side
       - name: Verify kustomization ${{ matrix.kustomization }}
         run: kubectl apply -k ${{ matrix.kustomization }} --wait --timeout=5m
 
@@ -91,8 +95,6 @@ jobs:
         uses: actions/checkout@v4
       - name: Run ansible-lint
         uses: ansible/ansible-lint@main
-        with:
-          setup_python: "true"
 
   release-please:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
