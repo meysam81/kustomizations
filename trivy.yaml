@@ -1,0 +1,11 @@
+quiet: false
+debug: false
+insecure: false
+timeout: 1m
+scan:
+  skip-dirs:
+    - "**/.terraform*"
+severity:
+  - HIGH
+  - CRITICAL
+cache-dir: $HOME/.cache/trivy
