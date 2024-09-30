@@ -66,8 +66,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        kustomization:
-          - oathkeeper/overlays/vm
+        include:
+          - kustomization: oathkeeper/overlays/prom
+            namespace: auth
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -77,6 +78,8 @@ jobs:
           version: ${{ env.K3S_VERSION }}
       - name: Verify k8s cluster
         run: kubectl get nodes
+      - name: Ensure namespace exists ${{ matrix.namespace }}
+        run: kubectl create namespace ${{ matrix.namespace }} --dry-run=client -o yaml | kubectl apply -f -
       - name: Verify kustomization ${{ matrix.kustomization }}
         run: kubectl apply -k ${{ matrix.kustomization }} --wait --timeout=5m
 
