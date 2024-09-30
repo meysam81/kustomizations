@@ -1,3 +1,7 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
 configMapGenerator:
   - files:
       - config.yml=oathkeeper-server-config.yml
@@ -14,67 +18,70 @@ images:
   - name: bitnami/kubectl
     newTag: 1.31.1
 
-commonLabels:
-  app.kubernetes.io/managed-by: Kustomize
-  app.kubernetes.io/name: oathkeeper
-  app.kubernetes.io/part-of: oathkeeper
-  app.kubernetes.io/version: v1.0.0
+labels:
+  - includeSelectors: true
+    pairs:
+      app.kubernetes.io/managed-by: Kustomize
+      app.kubernetes.io/name: oathkeeper
+      app.kubernetes.io/part-of: oathkeeper
+      app.kubernetes.io/version: v1.0.0
+
+namespace: auth
 
 replacements:
   - source:
+      fieldPath: metadata.namespace
       kind: Deployment
       name: oathkeeper
-      fieldPath: metadata.namespace
     targets:
-      - select:
-          kind: ClusterRoleBinding
-          name: oathkeeper-maester-role-binding
-        fieldPaths:
+      - fieldPaths:
           - subjects.[kind=ServiceAccount].namespace
         options:
           create: true
+        select:
+          kind: ClusterRoleBinding
+          name: oathkeeper-maester-role-binding
   - source:
+      fieldPath: spec.template.metadata.labels
       kind: Deployment
       name: oathkeeper
-      fieldPath: spec.template.metadata.labels
     targets:
-      - select:
+      - fieldPaths:
+          - spec.selector
+        options:
+          create: true
+        select:
           kind: Service
           name: oathkeeper-metrics
-        fieldPaths:
+      - fieldPaths:
           - spec.selector
         options:
           create: true
-      - select:
+        select:
           kind: Service
           name: oathkeeper-api
-        fieldPaths:
+      - fieldPaths:
           - spec.selector
         options:
           create: true
-      - select:
+        select:
           kind: Service
           name: oathkeeper-proxy
-        fieldPaths:
-          - spec.selector
-        options:
-          create: true
   - source:
+      fieldPath: spec.template.metadata.labels
       kind: Deployment
       name: oathkeeper-maester
-      fieldPath: spec.template.metadata.labels
     targets:
-      - select:
-          kind: Service
-          name: oathkeeper-maester-metrics
-        fieldPaths:
+      - fieldPaths:
           - spec.selector
         options:
           create: true
+        select:
+          kind: Service
+          name: oathkeeper-maester-metrics
 
 resources:
-  # - https://github.com/ory/oathkeeper-maester//config/crd?timeout=30s&ref=v0.1.10
-  - crds.yml
+  - crds.yml # https://github.com/ory/oathkeeper-maester//config/crd?timeout=30s&ref=v0.1.10
   - clusterrole.yml
   - clusterrolebinding.yml
   - service-oathkeeper-api.yml
@@ -84,5 +91,3 @@ resources:
   - serviceaccount.yml
   - deployment-oathkeeper-maester.yml
   - deployment-oathkeeper.yml
-
-namespace: auth

@@ -83,9 +83,11 @@ jobs:
         run: kubectl create namespace ${{ matrix.namespace }} --dry-run=client -o yaml | kubectl apply -f -
       - name: Create extras
         if: matrix.extra
-        run: kubectl apply -f ${{ matrix.extra }} --server-side
+        run: kubectl apply -f ${{ matrix.extra }} --server-side --timeout=2m
       - name: Verify kustomization ${{ matrix.kustomization }}
-        run: kubectl apply -k ${{ matrix.kustomization }} --wait --timeout=5m
+        run: kubectl apply -k ${{ matrix.kustomization }} --wait --timeout=2m
+      - name: Wait for pods to get into ready state
+        run: kubectl wait --for=condition=ready --timeout=1m pod --all -n ${{ matrix.namespace }}
 
   ansible-lint:
     if: github.event_name == 'push' || github.event_name == 'pull_request'
