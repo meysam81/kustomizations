@@ -87,7 +87,9 @@ jobs:
       - name: Verify kustomization ${{ matrix.kustomization }}
         run: kubectl apply -k ${{ matrix.kustomization }} --wait --timeout=2m
       - name: Wait for pods to get into ready state
-        run: kubectl wait --for=condition=ready --timeout=1m pod --all -n ${{ matrix.namespace }}
+        run: |
+          kubectl wait --for=condition=ready --timeout=1m pod --all -n ${{ matrix.namespace }}
+          kubectl get pod -n ${{ matrix.namespace }}
 
   ansible-lint:
     if: github.event_name == 'push' || github.event_name == 'pull_request'
