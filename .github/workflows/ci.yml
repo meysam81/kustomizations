@@ -69,7 +69,9 @@ jobs:
         include:
           - kustomization: oathkeeper/overlays/vm
             namespace: auth
-            extra: https://github.com/VictoriaMetrics/operator/raw/refs/tags/v0.48.3/config/crd/overlay/crd.yaml
+            extras: >-
+              kubectl apply -f --server-side --timeout=2m
+                https://github.com/VictoriaMetrics/operator/raw/refs/tags/v0.48.3/config/crd/overlay/crd.yaml
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -82,13 +84,14 @@ jobs:
       - name: Ensure namespace exists ${{ matrix.namespace }}
         run: kubectl create namespace ${{ matrix.namespace }} --dry-run=client -o yaml | kubectl apply -f -
       - name: Create extras
-        if: matrix.extra
-        run: kubectl apply -f ${{ matrix.extra }} --server-side --timeout=2m
+        if: matrix.extras
+        run: ${{ matrix.extras }}
       - name: Verify kustomization ${{ matrix.kustomization }}
         run: kubectl apply -k ${{ matrix.kustomization }} --wait --timeout=2m
       - name: Wait for pods to get into ready state
         run: |
-          kubectl wait --for=condition=ready --timeout=1m pod --all -n ${{ matrix.namespace }}
+          kubectl get pod -n ${{ matrix.namespace }}
+          kubectl wait --for=condition=ready --timeout=2m pod --all -n ${{ matrix.namespace }}
           kubectl get pod -n ${{ matrix.namespace }}
 
   ansible-lint:
