@@ -1,0 +1,3 @@
+# This file contains ignores rule violations for ansible-lint
+oathkeeper/base/crds.yml yaml[line-length]
+oathkeeper/base/deployment-oathkeeper.yml yaml[octal-values]
