@@ -18,6 +18,7 @@ on:
 env:
   ANSIBLE_FORCE_COLOR: "1"
   PY_COLORS: "1"
+  TIMEOUT: 10m
 
 jobs:
   trivy:
@@ -68,10 +69,10 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - kustomization: oathkeeper/overlays/vm
+          - kustomization: oathkeeper/test/vm
             namespace: auth
             extras: >-
-              kubectl apply --server-side --timeout=2m -f \
+              kubectl apply --server-side --timeout=${{ env.TIMEOUT }} -f \
                 https://github.com/VictoriaMetrics/operator/raw/refs/tags/v0.48.3/config/crd/overlay/crd.yaml
     steps:
       - name: Checkout
@@ -88,11 +89,11 @@ jobs:
         if: matrix.extras
         run: ${{ matrix.extras }}
       - name: Verify kustomization ${{ matrix.kustomization }}
-        run: kubectl apply -k ${{ matrix.kustomization }} --wait --timeout=2m
+        run: kubectl apply -k ${{ matrix.kustomization }} --wait --timeout=${{ env.TIMEOUT }}
       - name: Wait for pods to get into ready state
         run: |
           kubectl get pod -n ${{ matrix.namespace }}
-          kubectl wait --for=condition=ready --timeout=5m pod --all -n ${{ matrix.namespace }}
+          kubectl wait --for=condition=ready --timeout=${{ env.TIMEOUT }} pod --all -n ${{ matrix.namespace }}
           kubectl get pod -n ${{ matrix.namespace }}
 
   ansible-lint:

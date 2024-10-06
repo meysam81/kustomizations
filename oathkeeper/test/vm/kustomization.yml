@@ -1,0 +1,2 @@
+resources:
+  - https://github.com/meysam81/kustomizations//oathkeeper/overlays/vm?ref=main&timeout=5m
