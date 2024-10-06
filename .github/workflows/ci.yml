@@ -70,7 +70,7 @@ jobs:
           - kustomization: oathkeeper/overlays/vm
             namespace: auth
             extras: >-
-              kubectl apply -f --server-side --timeout=2m
+              kubectl apply --server-side --timeout=2m -f
                 https://github.com/VictoriaMetrics/operator/raw/refs/tags/v0.48.3/config/crd/overlay/crd.yaml
     steps:
       - name: Checkout
