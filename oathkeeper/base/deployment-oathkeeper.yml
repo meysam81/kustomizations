@@ -95,10 +95,10 @@ spec:
       terminationGracePeriodSeconds: 300
       volumes:
         - configMap:
-            defaultMode: "0444"
+            defaultMode: 0444
             name: oathkeeper-config
           name: oathkeeper-config
         - configMap:
-            defaultMode: "0444"
+            defaultMode: 0444
             name: oathkeeper-rules
           name: oathkeeper-rules-volume
