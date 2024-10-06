@@ -16,7 +16,8 @@ images:
   - name: oryd/oathkeeper-maester
     newTag: v0.1.10-arm64
   - name: bitnami/kubectl
-    newTag: 1.31.1
+    newName: d3fk/kubectl
+    newTag: v1.30
 
 labels:
   - includeSelectors: true
