@@ -1,3 +1,4 @@
+---
 access_rules:
   matching_strategy: regexp
   repositories:
@@ -35,8 +36,8 @@ authenticators:
     config:
       token_url: http://hydra-public.auth/oauth2/token
       retry:
-        give_up_after: "2s"
-        max_delay: "1s"
+        give_up_after: 2s
+        max_delay: 1s
       cache:
         enabled: true
         ttl: 60s

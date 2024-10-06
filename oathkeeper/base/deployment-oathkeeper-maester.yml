@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -24,10 +25,10 @@ spec:
       automountServiceAccountToken: true
       containers:
         - args:
-            - "--metrics-addr=0.0.0.0:8080"
+            - --metrics-addr=0.0.0.0:8080
             - controller
-            - "--rulesConfigmapName=oathkeeper-rules"
-            - "--rulesConfigmapNamespace=$(POD_NAMESPACE)"
+            - --rulesConfigmapName=oathkeeper-rules
+            - --rulesConfigmapNamespace=$(POD_NAMESPACE)
           command:
             - /manager
           env:
@@ -65,7 +66,7 @@ spec:
       initContainers:
         - command:
             - /bin/sh
-            - "-c"
+            - -c
             - |
               cm=$(kubectl get configmap oathkeeper-rules -n $(POD_NAMESPACE) -o jsonpath='{.metadata.name}' 2>/dev/null || true)
 

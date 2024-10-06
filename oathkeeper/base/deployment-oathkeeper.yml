@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -24,7 +25,7 @@ spec:
       containers:
         - args:
             - serve
-            - "--config"
+            - --config
             - /etc/oathkeeper/config.yml
           command:
             - oathkeeper
@@ -94,10 +95,10 @@ spec:
       terminationGracePeriodSeconds: 300
       volumes:
         - configMap:
-            defaultMode: 0444
+            defaultMode: "0444"
             name: oathkeeper-config
           name: oathkeeper-config
         - configMap:
-            defaultMode: 0444
+            defaultMode: "0444"
             name: oathkeeper-rules
           name: oathkeeper-rules-volume
