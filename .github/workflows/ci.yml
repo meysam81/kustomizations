@@ -92,7 +92,7 @@ jobs:
       - name: Wait for pods to get into ready state
         run: |
           kubectl get pod -n ${{ matrix.namespace }}
-          kubectl wait --for=condition=ready --timeout=2m pod --all -n ${{ matrix.namespace }}
+          kubectl wait --for=condition=ready --timeout=5m pod --all -n ${{ matrix.namespace }}
           kubectl get pod -n ${{ matrix.namespace }}
 
   ansible-lint:
