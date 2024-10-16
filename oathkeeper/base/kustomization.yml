@@ -14,7 +14,7 @@ images:
   - name: oryd/oathkeeper
     newTag: v0.40.7-distroless
   - name: oryd/oathkeeper-maester
-    newTag: v0.1.10-arm64
+    newTag: v0.1.11-arm64
   - name: bitnami/kubectl
     newName: d3fk/kubectl
     newTag: v1.30
