@@ -98,7 +98,7 @@ jobs:
         if: matrix.extras
         run: ${{ matrix.extras }}
       - name: Verify kustomization ${{ matrix.kustomization }}
-        run: kubectl apply -k ${{ matrix.kustomization }} --wait --timeout=10m
+        run: kubectl apply -k ${{ matrix.kustomization }} --wait --timeout=10m -n ${{ matrix.namespace }}
       - name: Wait for pods to get into ready state
         run: |
           kubectl get pod -n ${{ matrix.namespace }}
