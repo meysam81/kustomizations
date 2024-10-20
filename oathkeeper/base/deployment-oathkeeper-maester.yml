@@ -68,14 +68,14 @@ spec:
             - /bin/sh
             - -c
             - |
-              cm=$(kubectl get configmap oathkeeper-rules -n $(POD_NAMESPACE) -o jsonpath='{.metadata.name}' 2>/dev/null || true)
+              cm=$(kubectl get configmap oathkeeper-rules -n $POD_NAMESPACE -o jsonpath='{.metadata.name}' 2>/dev/null || true)
 
               cat <<'EOF' > access-rules.json
               []
               EOF
 
               if [ -z "$cm" ]; then
-                kubectl create configmap oathkeeper-rules --from-file=access-rules.json -n $(POD_NAMESPACE)
+                kubectl create configmap oathkeeper-rules --from-file=access-rules.json -n $POD_NAMESPACE
               else
                 echo "ConfigMap/oathkeeper-rules already present"
               fi
