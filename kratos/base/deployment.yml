@@ -120,5 +120,4 @@ spec:
         runAsNonRoot: true
         runAsUser: 65534
       serviceAccountName: kratos
-      terminationGracePeriodSeconds: 60
-  terminationGracePeriodSeconds: 300
+      terminationGracePeriodSeconds: 300
