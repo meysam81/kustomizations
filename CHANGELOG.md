@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.2](https://github.com/meysam81/kustomizations/compare/v1.0.1...v1.0.2) (2024-10-20)
+
+
+### Bug Fixes
+
+* **oathkeeper:** modify the kubectl image tag ([520bd76](https://github.com/meysam81/kustomizations/commit/520bd76f7499ed29d14c3c49a37e74a965c63f74))
+* **oathkeeper:** use env as normal unix style ([c4113d7](https://github.com/meysam81/kustomizations/commit/c4113d7d1f4609cef035f1143bbb5e88bad85a54))
+
 ## [1.0.1](https://github.com/meysam81/kustomizations/compare/v1.0.0...v1.0.1) (2024-10-20)
 
 
