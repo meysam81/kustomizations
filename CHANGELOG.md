@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.1](https://github.com/meysam81/kustomizations/compare/v1.0.0...v1.0.1) (2024-10-20)
+
+
+### Bug Fixes
+
+* **oathkeeper:** use bitnami 100M image for shell access ([d0e0e3f](https://github.com/meysam81/kustomizations/commit/d0e0e3f13dea1f9a82cc622c2d61dc41a2ccf922))
+* **tests:** deploy to ns from the CLI ([d19b41e](https://github.com/meysam81/kustomizations/commit/d19b41ec40723f7d478e5beb433fe1a2ea7d50b9))
+
 ## 1.0.0 (2024-10-20)
 
 
