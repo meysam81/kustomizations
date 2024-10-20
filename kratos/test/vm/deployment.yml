@@ -44,12 +44,13 @@
             path: identity.schema.json
         name: kratos-files
         optional: false
+      name: kratos-files
 - op: add
   path: /spec/template/spec/containers/0/args/-
-  value: --config=/etc/kratos/config.yml
+  value: "--config=/etc/kratos/config.yml"
 - op: add
   path: /spec/template/spec/containers/1/args/-
-  value: --config=/etc/kratos/config.yml
+  value: "--config=/etc/kratos/config.yml"
 - op: add
   path: /spec/template/spec/initContainers/0/args/-
-  value: --config=/etc/kratos/config.yml
+  value: "--config=/etc/kratos/config.yml"
