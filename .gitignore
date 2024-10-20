@@ -1,0 +1,9 @@
+# Created by https://www.toptal.com/developers/gitignore/api/Ansible
+# Edit at https://www.toptal.com/developers/gitignore?templates=Ansible
+
+### Ansible ###
+*.retry
+
+# End of https://www.toptal.com/developers/gitignore/api/Ansible
+
+.pre-commit-trivy-cache
