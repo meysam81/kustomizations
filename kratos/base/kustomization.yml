@@ -1,0 +1,22 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- service-admin.yml
+- service-courier.yml
+- service-public.yml
+- serviceaccount.yml
+- deployment.yml
+
+images:
+- name: oryd/kratos
+
+labels:
+- includeSelectors: true
+  pairs:
+    app.kubernetes.io/component: kratos
+    app.kubernetes.io/instance: kratos
+    app.kubernetes.io/managed-by: Kustomize
+    app.kubernetes.io/name: kratos
+    app.kubernetes.io/part-of: kratos
+    app.kubernetes.io/version: v1.0.0

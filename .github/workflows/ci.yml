@@ -77,16 +77,12 @@ jobs:
             namespace: auth
             extras: |
               kubectl apply --server-side --timeout=10m \
-                -f https://github.com/prometheus-operator/prometheus-operator/raw/refs/tags/v0.77.1/example/prometheus-operator-crd-full/monitoring.coreos.com_alertmanagerconfigs.yaml \
-                -f https://github.com/prometheus-operator/prometheus-operator/raw/refs/tags/v0.77.1/example/prometheus-operator-crd-full/monitoring.coreos.com_alertmanagers.yaml \
-                -f https://github.com/prometheus-operator/prometheus-operator/raw/refs/tags/v0.77.1/example/prometheus-operator-crd-full/monitoring.coreos.com_podmonitors.yaml \
-                -f https://github.com/prometheus-operator/prometheus-operator/raw/refs/tags/v0.77.1/example/prometheus-operator-crd-full/monitoring.coreos.com_probes.yaml \
-                -f https://github.com/prometheus-operator/prometheus-operator/raw/refs/tags/v0.77.1/example/prometheus-operator-crd-full/monitoring.coreos.com_prometheusagents.yaml \
-                -f https://github.com/prometheus-operator/prometheus-operator/raw/refs/tags/v0.77.1/example/prometheus-operator-crd-full/monitoring.coreos.com_prometheuses.yaml \
-                -f https://github.com/prometheus-operator/prometheus-operator/raw/refs/tags/v0.77.1/example/prometheus-operator-crd-full/monitoring.coreos.com_prometheusrules.yaml \
-                -f https://github.com/prometheus-operator/prometheus-operator/raw/refs/tags/v0.77.1/example/prometheus-operator-crd-full/monitoring.coreos.com_scrapeconfigs.yaml \
-                -f https://github.com/prometheus-operator/prometheus-operator/raw/refs/tags/v0.77.1/example/prometheus-operator-crd-full/monitoring.coreos.com_servicemonitors.yaml \
-                -f https://github.com/prometheus-operator/prometheus-operator/raw/refs/tags/v0.77.1/example/prometheus-operator-crd-full/monitoring.coreos.com_thanosrulers.yaml
+                -f https://github.com/prometheus-operator/prometheus-operator/raw/refs/tags/v0.77.1/example/prometheus-operator-crd-full/monitoring.coreos.com_servicemonitors.yaml
+          - kustomization: kratos/test/vm
+            namespace: auth
+            extras: |
+              kubectl apply --server-side --timeout=10m -f \
+                https://github.com/VictoriaMetrics/operator/raw/refs/tags/v0.48.3/config/crd/overlay/crd.yaml
     steps:
       - name: Checkout
         uses: actions/checkout@v4

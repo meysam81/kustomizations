@@ -1,0 +1,17 @@
+configMapGenerator:
+  - name: kratos-files
+    files:
+      - config.yml=kratos-server-config.yml
+      - identity.schema.json
+
+resources:
+  # - https://github.com/meysam81/kustomizations//kratos/overlays/vm?ref=main&timeout=5m
+  - ../../overlays/vm
+
+patches:
+  - path: deployment.yml
+    target:
+      group: apps
+      kind: Deployment
+      name: kratos
+      version: v1

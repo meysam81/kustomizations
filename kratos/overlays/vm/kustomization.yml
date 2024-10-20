@@ -1,0 +1,20 @@
+resources:
+  - ../../base
+  - vmservicescrape.yml
+
+images:
+  - name: oryd/kratos
+    newTag: v1.3.0-distroless
+
+replacements:
+  - source:
+      kind: Deployment
+      name: kratos
+      fieldPath: spec.template.metadata.labels
+    targets:
+      - select:
+          kind: VMServiceScrape
+        fieldPaths:
+          - spec.selector.matchLabels
+        options:
+          create: true
