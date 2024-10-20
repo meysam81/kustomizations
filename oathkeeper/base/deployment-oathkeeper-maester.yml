@@ -68,6 +68,8 @@ spec:
             - /bin/sh
             - -c
             - |
+              set -eux
+
               cm=$(kubectl get configmap oathkeeper-rules -n $POD_NAMESPACE -o jsonpath='{.metadata.name}' 2>/dev/null || true)
 
               cat <<'EOF' > access-rules.json
