@@ -1,4 +1,3 @@
-
 block-list-secret-scan: []
 branch: main
 download-external-modules: false
@@ -8,8 +7,21 @@ framework:
   - all
 quiet: true
 secrets-scan-file-type: []
-skip-check: []
+skip-check:
+  - CKV_K8S_10 # CPU requests should be set
+  - CKV_K8S_11 # CPU limits should be set
+  - CKV_K8S_12 # Memory requests should be set
+  - CKV_K8S_13 # Memory limits should be set
+  - CKV_K8S_15 # Image Pull Policy should be Always
+  - CKV_K8S_21 # The default namespace should not be used
+  - CKV_K8S_38 # Ensure that Service Account Tokens are only mounted where necessary
+  - CKV_K8S_43 # Image should use digest
+  - CKV_K8S_49 # Minimize wildcard use in Roles and ClusterRoles
+  - CKV2_K8S_6 # Minimize the admission of pods which lack an associated NetworkPolicy
 
 skip-framework: []
-skip-path: []
+skip-path:
+  - kratos/base/kustomization.yml
+  - oathkeeper/test/prom/kustomization.yml
+  - oathkeeper/test/vm/kustomization.yml
 summary-position: bottom

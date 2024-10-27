@@ -25,10 +25,10 @@ spec:
       automountServiceAccountToken: true
       containers:
         - args:
-            - --metrics-addr=0.0.0.0:8080
+            - "--metrics-addr=0.0.0.0:8080"
             - controller
-            - --rulesConfigmapName=oathkeeper-rules
-            - --rulesConfigmapNamespace=$(POD_NAMESPACE)
+            - "--rulesConfigmapName=oathkeeper-rules"
+            - "--rulesConfigmapNamespace=$(POD_NAMESPACE)"
           command:
             - /manager
           env:
@@ -37,11 +37,27 @@ spec:
                 fieldRef:
                   fieldPath: metadata.namespace
           image: oryd/oathkeeper-maester
+          livenessProbe:
+            failureThreshold: 5
+            initialDelaySeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            tcpSocket:
+              port: metrics
+            timeoutSeconds: 1
           name: oathkeeper-maester
           ports:
             - containerPort: 8080
               name: metrics
               protocol: TCP
+          readinessProbe:
+            failureThreshold: 5
+            initialDelaySeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            tcpSocket:
+              port: metrics
+            timeoutSeconds: 1
           resources:
             limits:
               cpu: 100m
@@ -66,7 +82,7 @@ spec:
       initContainers:
         - command:
             - /bin/sh
-            - -c
+            - "-c"
             - |
               set -eux
 
