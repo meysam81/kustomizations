@@ -21,7 +21,8 @@ skip-check:
 
 skip-framework: []
 skip-path:
-  - kratos/base/kustomization.yml
-  - oathkeeper/test/prom/kustomization.yml
-  - oathkeeper/test/vm/kustomization.yml
+  - "**/kustomization.yml"
+  - oathkeeper/base/deployment-oathkeeper.yml
+  - kratos/test/vm/kratos-server-config.yml
+  - oathkeeper/base/deployment-oathkeeper-maester.yml
 summary-position: bottom
