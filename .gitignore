@@ -7,3 +7,4 @@
 # End of https://www.toptal.com/developers/gitignore/api/Ansible
 
 .pre-commit-trivy-cache
+.secrets/
