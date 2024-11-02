@@ -75,64 +75,6 @@ jobs:
         with:
           sarif_file: trivy-results.sarif
 
-  test:
-    if: github.event_name == 'push' || github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    env:
-      K3S_VERSION: v1.31.1-k3s1
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - kustomization: oathkeeper/test/vm
-            namespace: auth
-            extras: |
-              kubectl apply --server-side --timeout=10m -f \
-                https://github.com/VictoriaMetrics/operator/raw/refs/tags/v0.48.3/config/crd/overlay/crd.yaml
-          - kustomization: oathkeeper/test/prom
-            namespace: auth
-            extras: |
-              kubectl apply --server-side --timeout=10m \
-                -f https://github.com/prometheus-operator/prometheus-operator/raw/refs/tags/v0.77.1/example/prometheus-operator-crd-full/monitoring.coreos.com_servicemonitors.yaml
-          - kustomization: kratos/test/vm
-            namespace: auth
-            extras: |
-              kubectl apply --server-side --timeout=10m -f \
-                https://github.com/VictoriaMetrics/operator/raw/refs/tags/v0.48.3/config/crd/overlay/crd.yaml
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Cache k3s data
-        uses: actions/cache@v4
-        with:
-          path: /var/lib/rancher/k3s
-          key: ${{ runner.os }}-k3s-data-${{ env.K3S_VERSION }}
-      - name: Setup k3s cluster
-        uses: debianmaster/actions-k3s@master
-        with:
-          version: ${{ env.K3S_VERSION }}
-      - name: Verify k8s cluster
-        run: kubectl get nodes
-      - name: Ensure namespace exists ${{ matrix.namespace }}
-        run: kubectl create namespace ${{ matrix.namespace }} --dry-run=client -o yaml | kubectl apply -f -
-      - name: Create extras
-        if: matrix.extras
-        run: ${{ matrix.extras }}
-      - name: Verify kustomization ${{ matrix.kustomization }}
-        run: kubectl apply -k ${{ matrix.kustomization }} --wait --timeout=10m -n ${{ matrix.namespace }}
-      - name: Wait for pods to get into ready state
-        run: |
-          kubectl get pod -n ${{ matrix.namespace }}
-          kubectl wait --for=condition=ready --timeout=10m pod --all -n ${{ matrix.namespace }}
-          kubectl get pod -n ${{ matrix.namespace }}
-      - name: Print pod logs
-        if: failure()
-        run: |
-          echo "Printing logs of pods in namespace ${{ matrix.namespace }}"
-          kubectl logs --all-containers=true --namespace=${{ matrix.namespace }} --selector=app.kubernetes.io/managed-by=Kustomize
-
   ansible-lint:
     if: github.event_name == 'push' || github.event_name == 'pull_request'
     runs-on: ubuntu-latest

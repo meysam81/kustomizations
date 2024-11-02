@@ -1,0 +1,44 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+images:
+  - name: oryd/oathkeeper-maester
+    newTag: v0.1.11
+  - name: bitnami/kubectl
+    newTag: 1.31.1
+
+labels:
+  - includeSelectors: true
+    pairs:
+      app.kubernetes.io/component: oathkeeper-maester
+      app.kubernetes.io/instance: oathkeeper-maester
+      app.kubernetes.io/managed-by: Kustomize
+      app.kubernetes.io/name: oathkeeper-maester
+      app.kubernetes.io/part-of: oathkeeper-maester
+      app.kubernetes.io/version: v1.0.0
+
+replacements:
+  - source:
+      fieldPath: metadata.namespace
+      kind: Deployment
+      name: oathkeeper-maester
+    targets:
+      - fieldPaths:
+          - subjects.[kind=ServiceAccount].namespace
+        options:
+          create: true
+        select:
+          kind: ClusterRoleBinding
+          name: oathkeeper-maester-role-binding
+
+resources:
+  # - https://github.com/ory/oathkeeper-maester//config/crd?timeout=30s&ref=v0.1.11
+  - crds-v0.1.11.yml
+  - clusterrole.yml
+  - clusterrolebinding.yml
+  - service-metrics.yml
+  - serviceaccount.yml
+  - deployment.yml
+
+namespace: auth

@@ -1,10 +1,4 @@
 ---
-configMapGenerator:
-  - behavior: replace
-    files:
-      - config.yml=oathkeeper-server-config.yml
-    name: oathkeeper-config
-
 resources:
   - ../../base
   - vmservicescrape.yml
@@ -12,12 +6,12 @@ resources:
 replacements:
   - source:
       kind: Service
-      name: oathkeeper-metrics
+      name: oathkeeper-maester-metrics
       fieldPath: metadata.labels
     targets:
       - select:
           kind: VMServiceScrape
-          name: oathkeeper
+          name: oathkeeper-maester
         fieldPaths:
           - spec.selector.matchLabels
         options:

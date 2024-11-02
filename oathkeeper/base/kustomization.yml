@@ -13,81 +13,22 @@ configMapGenerator:
 images:
   - name: oryd/oathkeeper
     newTag: v0.40.7-distroless
-  - name: oryd/oathkeeper-maester
-    newTag: v0.1.11
   - name: bitnami/kubectl
     newTag: 1.31.2
 
 labels:
   - includeSelectors: true
     pairs:
+      app.kubernetes.io/component: oathkeeper
+      app.kubernetes.io/instance: oathkeeper
       app.kubernetes.io/managed-by: Kustomize
       app.kubernetes.io/name: oathkeeper
       app.kubernetes.io/part-of: oathkeeper
       app.kubernetes.io/version: v1.0.0
 
-namespace: auth
-
-replacements:
-  - source:
-      fieldPath: metadata.namespace
-      kind: Deployment
-      name: oathkeeper
-    targets:
-      - fieldPaths:
-          - subjects.[kind=ServiceAccount].namespace
-        options:
-          create: true
-        select:
-          kind: ClusterRoleBinding
-          name: oathkeeper-maester-role-binding
-  - source:
-      fieldPath: spec.template.metadata.labels
-      kind: Deployment
-      name: oathkeeper
-    targets:
-      - fieldPaths:
-          - spec.selector
-        options:
-          create: true
-        select:
-          kind: Service
-          name: oathkeeper-metrics
-      - fieldPaths:
-          - spec.selector
-        options:
-          create: true
-        select:
-          kind: Service
-          name: oathkeeper-api
-      - fieldPaths:
-          - spec.selector
-        options:
-          create: true
-        select:
-          kind: Service
-          name: oathkeeper-proxy
-  - source:
-      fieldPath: spec.template.metadata.labels
-      kind: Deployment
-      name: oathkeeper-maester
-    targets:
-      - fieldPaths:
-          - spec.selector
-        options:
-          create: true
-        select:
-          kind: Service
-          name: oathkeeper-maester-metrics
-
 resources:
-  - crds.yml # https://github.com/ory/oathkeeper-maester//config/crd?timeout=30s&ref=v0.1.10
-  - clusterrole.yml
-  - clusterrolebinding.yml
-  - service-oathkeeper-api.yml
-  - service-oathkeeper-metrics.yml
-  - service-oathkeeper-proxy.yml
-  - service-oathkeeper-maester-metrics.yml
+  - service-api.yml
+  - service-metrics.yml
+  - service-proxy.yml
   - serviceaccount.yml
-  - deployment-oathkeeper-maester.yml
-  - deployment-oathkeeper.yml
+  - deployment.yml
