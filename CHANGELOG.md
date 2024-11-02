@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.0](https://github.com/meysam81/kustomizations/compare/v1.0.2...v1.1.0) (2024-11-02)
+
+
+### Features
+
+* add ealen/echo-server kustomization stack ([220af73](https://github.com/meysam81/kustomizations/commit/220af73237f0f29c018fd1fe72a6eeb4b32d9105))
+* create echo-server kustomization stack ([d986a76](https://github.com/meysam81/kustomizations/commit/d986a765424cdc6e51a283717b5ba6239971315c))
+* separate oathkeeper from its maester Kustomization stack ([530cc47](https://github.com/meysam81/kustomizations/commit/530cc47ae854c9f8cb43c7cb521faf432069068c))
+
 ## [1.0.2](https://github.com/meysam81/kustomizations/compare/v1.0.1...v1.0.2) (2024-10-20)
 
 
