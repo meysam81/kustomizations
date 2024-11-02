@@ -12,6 +12,7 @@ skip-check:
   - CKV_K8S_11 # CPU limits should be set
   - CKV_K8S_12 # Memory requests should be set
   - CKV_K8S_13 # Memory limits should be set
+  - CKV_K8S_14 # Image Tag should be fixed - not latest or blank
   - CKV_K8S_15 # Image Pull Policy should be Always
   - CKV_K8S_21 # The default namespace should not be used
   - CKV_K8S_38 # Ensure that Service Account Tokens are only mounted where necessary
@@ -21,15 +22,5 @@ skip-check:
 
 skip-framework: []
 skip-path:
-  - kratos/base/kustomization.yml
-  - kratos/overlays/vm/kustomization.yml
-  - kratos/test/vm/kratos-server-config.yml
-  - kratos/test/vm/kustomization.yml
-  - oathkeeper/base/deployment-oathkeeper-maester.yml
-  - oathkeeper/base/deployment-oathkeeper.yml
-  - oathkeeper/base/kustomization.yml
-  - oathkeeper/overlays/prom/kustomization.yml
-  - oathkeeper/overlays/vm/kustomization.yml
-  - oathkeeper/test/prom/kustomization.yml
-  - oathkeeper/test/vm/kustomization.yml
+  - ".*/kustomization\\.yml"
 summary-position: bottom

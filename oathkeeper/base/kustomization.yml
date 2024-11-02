@@ -6,15 +6,10 @@ configMapGenerator:
   - files:
       - config.yml=oathkeeper-server-config.yml
     name: oathkeeper-config
-  - envs:
-      - configs.env
-    name: oathkeeper-envs
 
 images:
   - name: oryd/oathkeeper
-    newTag: v0.40.7-distroless
   - name: bitnami/kubectl
-    newTag: 1.31.2
 
 labels:
   - includeSelectors: true

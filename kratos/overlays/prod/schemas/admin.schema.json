@@ -1,5 +1,5 @@
 {
-  "$id": "https://schemas.ory.sh/presets/kratos/quickstart/email-password/identity.schema.json",
+  "$id": "admin",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "properties": {
     "traits": {
@@ -7,10 +7,20 @@
       "properties": {
         "email": {
           "format": "email",
-          "minLength": 3,
+          "maxLength": 320,
           "ory.sh/kratos": {
             "credentials": {
-              "password": {
+              "code": {
+                "identifier": true,
+                "via": "email"
+              },
+              "passkey": {
+                "display_name": true
+              },
+              "totp": {
+                "account_name": true
+              },
+              "webauthn": {
                 "identifier": true
               }
             },
@@ -23,19 +33,6 @@
           },
           "title": "E-Mail",
           "type": "string"
-        },
-        "name": {
-          "properties": {
-            "first": {
-              "title": "First Name",
-              "type": "string"
-            },
-            "last": {
-              "title": "Last Name",
-              "type": "string"
-            }
-          },
-          "type": "object"
         }
       },
       "required": [
@@ -44,6 +41,6 @@
       "type": "object"
     }
   },
-  "title": "Person",
+  "title": "Admin",
   "type": "object"
 }

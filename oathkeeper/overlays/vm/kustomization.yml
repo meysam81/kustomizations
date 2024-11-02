@@ -9,6 +9,12 @@ resources:
   - ../../base
   - vmservicescrape.yml
 
+images:
+  - name: oryd/oathkeeper
+    newTag: v0.40.7-distroless
+  - name: bitnami/kubectl
+    newTag: 1.31.2
+
 replacements:
   - source:
       kind: Service

@@ -29,8 +29,8 @@ spec:
               httpHeaders:
                 - name: Host
                   value: 127.0.0.1
-              path: /health/alive
-              port: 4434
+              path: /health/ready
+              port: http-admin
               scheme: HTTP
             initialDelaySeconds: 1
             periodSeconds: 10
@@ -50,8 +50,8 @@ spec:
               httpHeaders:
                 - name: Host
                   value: 127.0.0.1
-              path: /admin/health/ready
-              port: 4434
+              path: /health/ready
+              port: http-admin
               scheme: HTTP
             initialDelaySeconds: 1
             periodSeconds: 10
@@ -78,8 +78,34 @@ spec:
           name: kratos-courier
           ports:
             - containerPort: 4435
-              name: http-courier
+              name: http-metrics
               protocol: TCP
+          livenessProbe:
+            failureThreshold: 5
+            httpGet:
+              httpHeaders:
+                - name: Host
+                  value: 127.0.0.1
+              path: /metrics/prometheus
+              port: http-metrics
+              scheme: HTTP
+            initialDelaySeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          readinessProbe:
+            failureThreshold: 5
+            httpGet:
+              httpHeaders:
+                - name: Host
+                  value: 127.0.0.1
+              path: /metrics/prometheus
+              port: http-metrics
+              scheme: HTTP
+            initialDelaySeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
           resources: {}
           securityContext:
             allowPrivilegeEscalation: false
@@ -121,5 +147,7 @@ spec:
         runAsGroup: 65534
         runAsNonRoot: true
         runAsUser: 65534
+        seccompProfile:
+          type: RuntimeDefault
       serviceAccountName: kratos
       terminationGracePeriodSeconds: 300

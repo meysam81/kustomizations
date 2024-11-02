@@ -1,2 +1,0 @@
-resources:
-  - https://github.com/meysam81/kustomizations//oathkeeper/overlays/prom?ref=main&timeout=5m

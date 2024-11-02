@@ -4,7 +4,6 @@ kind: Deployment
 metadata:
   name: oathkeeper
 spec:
-  selector:
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -15,13 +14,10 @@ spec:
       containers:
         - args:
             - serve
-            - --config
+            - "--config"
             - /etc/oathkeeper/config.yml
           command:
             - oathkeeper
-          envFrom:
-            - configMapRef:
-                name: oathkeeper-envs
           image: oryd/oathkeeper
           livenessProbe:
             failureThreshold: 5
@@ -79,9 +75,9 @@ spec:
             - mountPath: /etc/oathkeeper
               name: oathkeeper-config
               readOnly: true
-            - mountPath: /etc/rules
-              name: oathkeeper-rules-volume
-              readOnly: true
+      securityContext:
+        fsGroup: 65534
+        fsGroupChangePolicy: Always
       serviceAccountName: oathkeeper
       terminationGracePeriodSeconds: 300
       volumes:
@@ -89,7 +85,3 @@ spec:
             defaultMode: 0444
             name: oathkeeper-config
           name: oathkeeper-config
-        - configMap:
-            defaultMode: 0444
-            name: oathkeeper-rules
-          name: oathkeeper-rules-volume

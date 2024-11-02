@@ -1,10 +1,65 @@
+configMapGenerator:
+  - name: kratos-config
+    files:
+      - config.yml=kratos-server-config.yml
+
 resources:
   - ../../base
   - vmservicescrape.yml
 
 images:
   - name: oryd/kratos
-    newTag: v1.3.1-distroless
+    newTag: v1.3.1
+
+patches:
+  - patch: |
+      - op: add
+        path: /spec/template/spec/initContainers/0/volumeMounts
+        value:
+          - mountPath: /etc/kratos/config.yml
+            name: kratos-config
+            readOnly: true
+            subPath: config.yml
+      - op: add
+        path: /spec/template/spec/containers/0/volumeMounts
+        value:
+          - mountPath: /etc/kratos/config.yml
+            name: kratos-config
+            readOnly: true
+            subPath: config.yml
+      - op: add
+        path: /spec/template/spec/containers/1/volumeMounts
+        value:
+          - mountPath: /etc/kratos/config.yml
+            name: kratos-config
+            readOnly: true
+            subPath: config.yml
+      - op: add
+        path: /spec/template/spec/volumes
+        value:
+          - configMap:
+              defaultMode: 0444
+              items:
+                - key: config.yml
+                  path: config.yml
+              name: kratos-config
+            name: kratos-config
+    target:
+      kind: Deployment
+      name: kratos
+  - patch: |
+      - op: add
+        path: /spec/template/spec/initContainers/0/args/-
+        value: "--config=/etc/kratos/config.yml"
+      - op: add
+        path: /spec/template/spec/containers/0/args/-
+        value: "--config=/etc/kratos/config.yml"
+      - op: add
+        path: /spec/template/spec/containers/1/args/-
+        value: "--config=/etc/kratos/config.yml"
+    target:
+      kind: Deployment
+      name: kratos
 
 replacements:
   - source:
@@ -18,3 +73,5 @@ replacements:
           - spec.selector.matchLabels
         options:
           create: true
+
+namespace: auth
