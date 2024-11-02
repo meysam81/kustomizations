@@ -1,4 +1,5 @@
 .github/workflows/ci.yml yaml[line-length]
 kratos/test/vm/deployment.yml yaml[octal-values]
-oathkeeper/base/crds.yml yaml[line-length]
-oathkeeper/base/deployment-oathkeeper.yml yaml[octal-values]
+oathkeeper-maester/base/crds-v0.1.10.yml yaml[line-length]
+oathkeeper-maester/base/crds-v0.1.11.yml yaml[line-length]
+oathkeeper/base/deployment.yml yaml[octal-values]
