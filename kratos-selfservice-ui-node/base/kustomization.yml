@@ -1,0 +1,30 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+configMapGenerator:
+  - envs:
+      - configs.env
+    name: kratos-selfservice-ui-node
+
+secretGenerator:
+  - envs:
+      - secrets.env
+    name: kratos-selfservice-ui-node
+
+resources:
+  - service.yml
+  - serviceaccount.yml
+  - deployment.yml
+
+images:
+  - name: oryd/kratos-selfservice-ui-node
+
+labels:
+  - includeSelectors: true
+    pairs:
+      app.kubernetes.io/component: kratos-selfservice-ui-node
+      app.kubernetes.io/instance: kratos-selfservice-ui-node
+      app.kubernetes.io/managed-by: Kustomize
+      app.kubernetes.io/name: kratos-selfservice-ui-node
+      app.kubernetes.io/part-of: kratos-selfservice-ui-node
+      app.kubernetes.io/version: v1.0.0

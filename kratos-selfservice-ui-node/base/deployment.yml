@@ -1,0 +1,78 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kratos-selfservice-ui-node
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    spec:
+      containers:
+        - envFrom:
+            - secretRef:
+                name: kratos-selfservice-ui-node
+            - configMapRef:
+                name: kratos-selfservice-ui-node
+          image: oryd/kratos-selfservice-ui-node
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /health/alive
+              port: http
+            initialDelaySeconds: 3
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: kratos-selfservice-ui-node
+          ports:
+            - containerPort: 3000
+              name: http
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /health/ready
+              port: http
+            initialDelaySeconds: 3
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+            runAsGroup: 65534
+            runAsNonRoot: true
+            runAsUser: 65534
+            seLinuxOptions:
+              level: s0:c123,c456
+            seccompProfile:
+              type: RuntimeDefault
+          volumeMounts:
+            - mountPath: /home/ory
+              name: tmp
+            - mountPath: /.npm
+              name: tmp
+      securityContext:
+        fsGroup: 65534
+        fsGroupChangePolicy: OnRootMismatch
+        runAsGroup: 65534
+        runAsNonRoot: true
+        runAsUser: 65534
+        seccompProfile:
+          type: RuntimeDefault
+      serviceAccountName: kratos-selfservice-ui-node
+      terminationGracePeriodSeconds: 120
+      volumes:
+        - emptyDir: {}
+          name: tmp
