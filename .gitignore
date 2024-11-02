@@ -8,3 +8,4 @@
 
 .pre-commit-trivy-cache
 .secrets/
+kratos/overlays/prod
