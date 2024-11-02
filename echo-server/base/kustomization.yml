@@ -3,6 +3,9 @@ resources:
   - serviceaccount.yml
   - deployment.yml
 
+images:
+  - name: ghcr.io/developer-friendly/echo-server
+
 replacements:
   - source:
       kind: ConfigMap
@@ -29,6 +32,3 @@ labels:
       app.kubernetes.io/name: echo-server
       app.kubernetes.io/part-of: echo-server
       app.kubernetes.io/version: v1.0.0
-
-images:
-  - name: ghcr.io/developer-friendly/echo-server
