@@ -18,7 +18,7 @@ resources:
 
 images:
   - name: oryd/kratos
-    newTag: v1.3.0-distroless
+    newTag: v1.3.1-distroless
 
 commonLabels:
   app.kubernetes.io/component: kratos
