@@ -14,6 +14,7 @@
   - [Usage](#usage)
   - [FAQ?](#faq)
     - [Why not use Helm?](#why-not-use-helm)
+  - [Philosophy](#philosophy)
   - [Contribute](#contribute)
   - [License](#license)
 
@@ -59,6 +60,24 @@ breaker when it comes to production deployment.
 
 With the Kustomizations you see in this repo, that is just one patch away from
 manifestation.
+
+## Philosophy
+
+I believe Kustomization is way better than templating language of the Helm.
+Although I respect the people maintaining the upstream charts, and regardless
+of the fact that I also use most of the Helm charts in my day-to-day work, I
+prefer Kustomization because of its expressiveness and flexibility.
+
+In my opinion, being the first-class citizen in the Kubernetes ecosystem makes
+Kustomization is a superior choice for deploying applications.
+
+Additionally, modifying the upstream Helm charts, if not done right by the
+maintainer, can leave the end-user in a big hassle, e.g., when trying to mount
+secrets from External Secrets!
+
+Kustomization, however, has it all. There is nothing you can't do when
+deploying apps with Kustomization stack and with its powerful patch
+functionality.
 
 ## Contribute
 
