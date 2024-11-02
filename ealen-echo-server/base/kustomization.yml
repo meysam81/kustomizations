@@ -1,0 +1,33 @@
+resources:
+  - deployment.yml
+  - service.yml
+
+labels:
+  - includeSelectors: true
+    pairs:
+      app.kubernetes.io/component: echo-server
+      app.kubernetes.io/instance: echo-server
+      app.kubernetes.io/managed-by: Kustomize
+      app.kubernetes.io/name: echo-server
+      app.kubernetes.io/part-of: echo-server
+      app.kubernetes.io/version: v1.0.0
+
+images:
+  - name: ealen/echo-server
+
+configMapGenerator:
+  - name: echo-server
+    envs:
+      - configs.env
+
+replacements:
+  - source:
+      kind: ConfigMap
+      name: echo-server
+      fieldPath: data.PORT
+    targets:
+      - select:
+          kind: Deployment
+          name: echo-server
+        fieldPaths:
+          - spec.template.spec.containers.[name=echo-server].ports.[name=http].containerPort

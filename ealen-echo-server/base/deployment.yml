@@ -4,13 +4,20 @@ kind: Deployment
 metadata:
   name: echo-server
 spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: echo-server
   template:
+    metadata:
+      labels:
+        app: echo-server
     spec:
       containers:
         - envFrom:
             - configMapRef:
                 name: echo-server
-          image: ghcr.io/developer-friendly/echo-server
+          image: ealen/echo-server
           livenessProbe:
             failureThreshold: 3
             httpGet:
@@ -22,12 +29,12 @@ spec:
             timeoutSeconds: 1
           name: echo-server
           ports:
-            - containerPort: 3000
+            - containerPort: 8000
               name: http
           readinessProbe:
             failureThreshold: 3
             httpGet:
-              path: /ready
+              path: /healthz
               port: http
             initialDelaySeconds: 3
             periodSeconds: 10
@@ -49,4 +56,3 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
         seccompProfile:
           type: RuntimeDefault
-      serviceAccountName: echo-server
