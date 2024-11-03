@@ -14,8 +14,6 @@ spec:
     spec:
       containers:
         - envFrom:
-            - secretRef:
-                name: kratos-selfservice-ui-node
             - configMapRef:
                 name: kratos-selfservice-ui-node
           image: oryd/kratos-selfservice-ui-node

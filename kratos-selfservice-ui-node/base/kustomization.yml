@@ -6,11 +6,6 @@ configMapGenerator:
       - configs.env
     name: kratos-selfservice-ui-node
 
-secretGenerator:
-  - envs:
-      - secrets.env
-    name: kratos-selfservice-ui-node
-
 resources:
   - service.yml
   - serviceaccount.yml
