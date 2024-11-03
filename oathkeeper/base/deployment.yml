@@ -14,8 +14,6 @@ spec:
       containers:
         - args:
             - serve
-            - "--config"
-            - /etc/oathkeeper/config.yml
           command:
             - oathkeeper
           image: oryd/oathkeeper
@@ -71,17 +69,10 @@ spec:
             runAsUser: 65534
             seccompProfile:
               type: RuntimeDefault
-          volumeMounts:
-            - mountPath: /etc/oathkeeper
-              name: oathkeeper-config
-              readOnly: true
+          volumeMounts: []
       securityContext:
         fsGroup: 65534
         fsGroupChangePolicy: Always
       serviceAccountName: oathkeeper
       terminationGracePeriodSeconds: 300
-      volumes:
-        - configMap:
-            defaultMode: 0444
-            name: oathkeeper-config
-          name: oathkeeper-config
+      volumes: []

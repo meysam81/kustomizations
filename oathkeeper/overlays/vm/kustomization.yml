@@ -1,7 +1,6 @@
 ---
 configMapGenerator:
-  - behavior: replace
-    files:
+  - files:
       - config.yml=oathkeeper-server-config.yml
     name: oathkeeper-config
 
@@ -14,6 +13,36 @@ images:
     newTag: v0.40.7-distroless
   - name: bitnami/kubectl
     newTag: 1.31.2
+
+patches:
+  - patch: |
+      - op: add
+        path: /spec/template/spec/containers/0/args/-
+        value: --config=/etc/oathkeeper/config.yml
+    target:
+      kind: Deployment
+      name: oathkeeper
+  - patch: |
+      - op: add
+        path: /spec/template/spec/containers/0/volumeMounts/-
+        value:
+          mountPath: /etc/oathkeeper/config.yml
+          name: oathkeeper-config
+          readOnly: true
+          subPath: config.yml
+      - op: add
+        path: /spec/template/spec/volumes/-
+        value:
+          configMap:
+            defaultMode: 0444
+            items:
+              - key: config.yml
+                path: config.yml
+            name: oathkeeper-config
+          name: oathkeeper-config
+    target:
+      kind: Deployment
+      name: oathkeeper
 
 replacements:
   - source:
