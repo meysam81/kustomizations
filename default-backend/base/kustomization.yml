@@ -1,0 +1,17 @@
+resources:
+  - service.yml
+  - serviceaccount.yml
+  - deployment.yml
+
+images:
+  - name: ghcr.io/meysam81/default-backend
+
+labels:
+  - includeSelectors: true
+    pairs:
+      app.kubernetes.io/component: default-backend
+      app.kubernetes.io/instance: default-backend
+      app.kubernetes.io/managed-by: Kustomize
+      app.kubernetes.io/name: default-backend
+      app.kubernetes.io/part-of: default-backend
+      app.kubernetes.io/version: v1.0.0
