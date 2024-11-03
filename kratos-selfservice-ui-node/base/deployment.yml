@@ -72,7 +72,7 @@ spec:
         seccompProfile:
           type: RuntimeDefault
       serviceAccountName: kratos-selfservice-ui-node
-      terminationGracePeriodSeconds: 120
+      terminationGracePeriodSeconds: 30
       volumes:
         - emptyDir: {}
           name: tmp
