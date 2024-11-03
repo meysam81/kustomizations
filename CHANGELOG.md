@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.2.0](https://github.com/meysam81/kustomizations/compare/v1.1.0...v1.2.0) (2024-11-03)
+
+
+### Features
+
+* add the kratos UI stack ([6b97d08](https://github.com/meysam81/kustomizations/commit/6b97d084ed657b24193c62f80076b2013fe1251d))
+
+
+### Miscellaneous Chores
+
+* **CI:** remove useless checkout step ([b2702d8](https://github.com/meysam81/kustomizations/commit/b2702d823a3122ae7a32caf6ca89287b7b5c9e84))
+
 ## [1.1.0](https://github.com/meysam81/kustomizations/compare/v1.0.2...v1.1.0) (2024-11-02)
 
 
