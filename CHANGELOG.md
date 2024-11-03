@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.3.0](https://github.com/meysam81/kustomizations/compare/v1.2.0...v1.3.0) (2024-11-03)
+
+
+### Features
+
+* add default backend stack ([f2b0289](https://github.com/meysam81/kustomizations/commit/f2b0289e7e3ea6a37933dec38e0fcc9b47e4306d))
+
+
+### Miscellaneous Chores
+
+* **docs:** provide a reproducible example ([8d37bc2](https://github.com/meysam81/kustomizations/commit/8d37bc27df8b8e285c148aa05f06fb9b02a084ac))
+
 ## [1.2.0](https://github.com/meysam81/kustomizations/compare/v1.1.0...v1.2.0) (2024-11-03)
 
 
