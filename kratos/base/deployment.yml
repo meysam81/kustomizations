@@ -21,6 +21,7 @@ spec:
             - all
           command:
             - kratos
+          envFrom: []
           image: oryd/kratos
           lifecycle: {}
           livenessProbe:
@@ -74,6 +75,9 @@ spec:
             - courier
             - watch
             - "--expose-metrics-port=4435"
+          command:
+            - kratos
+          envFrom: []
           image: oryd/kratos
           name: kratos-courier
           ports:
@@ -126,6 +130,7 @@ spec:
             - "--yes"
           command:
             - kratos
+          envFrom: []
           image: oryd/kratos
           name: kratos-automigrate
           resources: {}
