@@ -44,7 +44,7 @@ For your reference, here's a quickstart:
 # kustomization.yml
 
 resources:
-  - https://github.com/meysam81/kustomizations//oathkeeper/overlays/vm?ref=v1.0.0&timeout=5m
+  - https://github.com/meysam81/kustomizations//oathkeeper/overlays/vm?ref=v1.3.1&timeout=5m
 ```
 
 ## FAQ?
