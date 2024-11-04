@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/meysam81/kustomizations/compare/v1.3.0...v1.3.1) (2024-11-04)
+
+
+### Bug Fixes
+
+* **oathkeeper:** discover metrics for scraping only ([c6bfe3f](https://github.com/meysam81/kustomizations/commit/c6bfe3f2758ea45437c4785bfa8bc8b98375279b))
+
 ## [1.3.0](https://github.com/meysam81/kustomizations/compare/v1.2.0...v1.3.0) (2024-11-03)
 
 
