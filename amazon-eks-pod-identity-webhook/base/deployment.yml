@@ -23,10 +23,32 @@ spec:
                 fieldRef:
                   fieldPath: metadata.namespace
           image: amazon/amazon-eks-pod-identity-webhook
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /healthz
+              port: https
+              scheme: HTTPS
+            initialDelaySeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
           name: pod-identity-webhook
           ports:
             - containerPort: 443
               name: https
+            - containerPort: 9999
+              name: metrics
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /healthz
+              port: https
+              scheme: HTTPS
+            initialDelaySeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
           resources: {}
           securityContext:
             allowPrivilegeEscalation: false

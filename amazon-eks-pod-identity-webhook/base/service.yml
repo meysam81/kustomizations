@@ -3,8 +3,7 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    prometheus.io/port: "443"
-    prometheus.io/scheme: https
+    prometheus.io/port: "9999"
     prometheus.io/scrape: "true"
   name: pod-identity-webhook
 spec:
@@ -12,3 +11,6 @@ spec:
     - name: https
       port: 443
       targetPort: https
+    - name: metrics
+      port: 9999
+      targetPort: metrics
