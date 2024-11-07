@@ -1,0 +1,52 @@
+resources:
+  - namespace.yml
+  - clusterissuer.yml
+  - certificate.yml
+  - clusterrole.yml
+  - clusterrolebinding.yml
+  - serviceaccount.yml
+  - service.yml
+  - mutatingwebhook.yml
+  - role.yml
+  - rolebinding.yml
+  - deployment.yml
+
+images:
+  - name: amazon/amazon-eks-pod-identity-webhook
+
+labels:
+  - includeSelectors: true
+    pairs:
+      app.kubernetes.io/component: amazon-eks-pod-identity-webhook
+      app.kubernetes.io/instance: amazon-eks-pod-identity-webhook
+      app.kubernetes.io/managed-by: Kustomize
+      app.kubernetes.io/name: amazon-eks-pod-identity-webhook
+      app.kubernetes.io/part-of: amazon-eks-pod-identity-webhook
+      app.kubernetes.io/version: v1.0.0
+
+namespace: amazon-eks-pod-identity-webhook
+
+replacements:
+  - source:
+      kind: Namespace
+      fieldPath: metadata.name
+    targets:
+      - select:
+          kind: Certificate
+          name: pod-identity-webhook
+        fieldPaths:
+          - spec.commonName
+          - spec.dnsNames.1
+          - spec.dnsNames.2
+          - spec.dnsNames.3
+        options:
+          delimiter: .
+          index: 1
+      - select:
+          kind: MutatingWebhookConfiguration
+          name: pod-identity-webhook
+        fieldPaths:
+          - metadata.annotations.cert-manager\.io/inject-ca-from
+        options:
+          delimiter: /
+          index: 0
