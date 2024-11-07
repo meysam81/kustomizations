@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.4.0](https://github.com/meysam81/kustomizations/compare/v1.3.1...v1.4.0) (2024-11-07)
+
+
+### Features
+
+* **amazon-pod-identity:** add the webhook stack with a robust kustomization :) ([10c9afc](https://github.com/meysam81/kustomizations/commit/10c9afc7098cf07b50d8d0f324a103ad7b52429b))
+
+
+### Miscellaneous Chores
+
+* **amazon-pod-identity:** add probes to the deployment ([4df330c](https://github.com/meysam81/kustomizations/commit/4df330cb66a41e590d7cf632e6f55c32da9a88a5))
+* **docs:** add the usage for amazon pod identity stack ([c3abb93](https://github.com/meysam81/kustomizations/commit/c3abb936ab4f580cd55108f4bc560c3d5591c1f3))
+
 ## [1.3.1](https://github.com/meysam81/kustomizations/compare/v1.3.0...v1.3.1) (2024-11-04)
 
 
