@@ -10,6 +10,7 @@ spec:
       containers:
         - command:
             - /webhook
+            - --port=8443
             - --in-cluster=false
             - --namespace=$(POD_NAMESPACE)
             - --service-name=pod-identity-webhook
@@ -35,7 +36,7 @@ spec:
             timeoutSeconds: 1
           name: pod-identity-webhook
           ports:
-            - containerPort: 443
+            - containerPort: 8443
               name: https
             - containerPort: 9999
               name: metrics
