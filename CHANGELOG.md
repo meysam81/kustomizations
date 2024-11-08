@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/meysam81/kustomizations/compare/v1.4.0...v1.4.1) (2024-11-08)
+
+
+### Bug Fixes
+
+* **pod-identity-webhook:** expose https on non-privileged port ([1082f0e](https://github.com/meysam81/kustomizations/commit/1082f0ed4f7244d94a3ec634df21880e9be64141))
+
 ## [1.4.0](https://github.com/meysam81/kustomizations/compare/v1.3.1...v1.4.0) (2024-11-07)
 
 
