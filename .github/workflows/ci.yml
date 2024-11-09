@@ -114,13 +114,18 @@ jobs:
         uses: fluxcd/flux2/action@main
       - name: Build source
         run: tar cvzf kustomizations.tar.gz $(find . -maxdepth 1 -type d ! -name '.*' | grep -v -f .buildignore)
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
       - name: Push to ghcr OCI registry
         run: |
           flux push artifact oci://ghcr.io/${{ github.repository }}:${{ needs.release-please.outputs.tag_name }} \
             --path=kustomizations.tar.gz \
             --source=${{ github.server_url }}/${{ github.repository }} \
             --revision="$(git tag --points-at HEAD)@sha1:$(git rev-parse HEAD)" \
-            --creds ${{ github.actor }}:${{ github.token }} \
             --annotations="org.opencontainers.image.created=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" \
             --annotations="org.opencontainers.image.description=OCI artifact containing Kustomizations" \
             --annotations="org.opencontainers.image.documentation=${{ github.server_url }}/${{ github.repository }}" \
