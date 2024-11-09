@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.6](https://github.com/meysam81/kustomizations/compare/v1.4.5...v1.4.6) (2024-11-09)
+
+
+### Bug Fixes
+
+* **CI:** manually login to ghcr ([4d58c69](https://github.com/meysam81/kustomizations/commit/4d58c69ce6cb4f75933fb99b985e0a0fd8ecd59e))
+
 ## [1.4.5](https://github.com/meysam81/kustomizations/compare/v1.4.4...v1.4.5) (2024-11-09)
 
 
