@@ -105,16 +105,22 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup oras
-        uses: oras-project/setup-oras@v1
-      - name: Verify oras
-        run: oras version
-      - env:
-          GITHUB_TOKEN: ${{ github.token }}
-          GITHUB_USERNAME: ${{ github.actor }}
-        name: Build and push to ghcr.io
-        run: \
-          ./.github/build-push-oci.sh \
-            . \
-            ${{ github.event.repository.name }} \
-            ${{ needs.release-please.outputs.tag_name }}
+      - name: Setup Flux CLI
+        uses: fluxcd/flux2/action@main
+      - name: Build source
+        run: tar cvzf kustomizations.tar.gz $(find . -maxdepth 1 -type d ! -name '.*' | grep -v -f .buildignore)
+      - name: Push to ghcr OCI registry
+        run: |
+          flux push artifact oci://ghcr.io/${{ github.repository }}:${{ needs.release-please.outputs.tag_name }} \
+            --path=kustomizations.tar.gz \
+            --source=${{ github.server_url }}/${{ github.repository }} \
+            --revision="$(git tag --points-at HEAD)@sha1:$(git rev-parse HEAD)" \
+            --creds ${{ github.actor }}:${{ github.token }} \
+            --annotations="org.opencontainers.image.created=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" \
+            --annotations="org.opencontainers.image.description=OCI artifact containing Kustomizations" \
+            --annotations="org.opencontainers.image.documentation=${{ github.server_url }}/${{ github.repository }}" \
+            --annotations="org.opencontainers.image.licenses=Apache-2.0" \
+            --annotations="org.opencontainers.image.revision=$(git rev-parse HEAD)" \
+            --annotations="org.opencontainers.image.title=Kustomizations" \
+            --annotations="org.opencontainers.image.url=${{ github.server_url }}/${{ github.repository }}" \
+            --annotations="org.opencontainers.image.version=$(git tag --points-at HEAD)"
