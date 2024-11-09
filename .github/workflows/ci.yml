@@ -97,8 +97,9 @@ jobs:
           release-type: simple
 
   release-oci:
+    needs:
+      - release-please
     if: needs.release-please.outputs.releases_created == 'true'
-    needs: release-please
     permissions:
       packages: write
     runs-on: ubuntu-latest
