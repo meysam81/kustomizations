@@ -12,6 +12,7 @@
 - [Kustomizations](#kustomizations)
   - [Intro](#intro)
   - [Usage](#usage)
+  - [OCI Registry](#oci-registry)
   - [FAQ?](#faq)
     - [Why not use Helm?](#why-not-use-helm)
   - [Philosophy](#philosophy)
@@ -45,6 +46,42 @@ For your reference, here's a quickstart:
 
 resources:
   - https://github.com/meysam81/kustomizations//oathkeeper/overlays/vm?ref=v1.3.1&timeout=5m
+```
+
+## OCI Registry
+
+This repository comes with an officially supported OCI registry. For usage with
+FluxCD, you can use the following snippet:
+
+```yaml
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: kustomizations
+  namespace: flux-system
+spec:
+  interval: 12h
+  ref:
+    semver: '>=0.1.0'
+  url: oci://ghcr.io/meysam81/kustomizations
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: echo-server
+  namespace: flux-system
+spec:
+  interval: 1h
+  path: ./echo-server/overlays/default
+  prune: true
+  retryInterval: 2m
+  sourceRef:
+    kind: OCIRepository
+    name: kustomizations
+  targetNamespace: default
+  timeout: 5m
+  wait: true
 ```
 
 ## FAQ?
