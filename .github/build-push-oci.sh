@@ -95,7 +95,7 @@ push_to_oci() {
     local temp_dir=$(mktemp -d)
     local tar_file=$temp_dir/image_name.tar
     local tar_basename=$(basename $tar_file)
-    tar cvzf "$tar_file" $(find . -maxdepth 1 -type d ! -name '.*' | grep -v -f .buildignore)
+    tar cvzf "$tar_file" $(find $source_path -maxdepth 1 -type d ! -name '.*' | grep -v -f .buildignore)
 
     local config_file=$(create_oci_config "$source_path" "$image_name" "$tag")
 
