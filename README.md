@@ -100,7 +100,7 @@ manifestation.
 
 ## Philosophy
 
-I believe Kustomization is way better than templating language of the Helm.
+I believe Kustomization is way better than the templating language of Helm.
 Although I respect the people maintaining the upstream charts, and regardless
 of the fact that I also use most of the Helm charts in my day-to-day work, I
 prefer Kustomization because of its expressiveness and flexibility.
