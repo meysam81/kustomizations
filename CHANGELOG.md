@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.4.2](https://github.com/meysam81/kustomizations/compare/v1.4.1...v1.4.2) (2024-11-09)
+
+
+### Features
+
+* **CI:** publish OCI package to GHCR ([6fd5ac5](https://github.com/meysam81/kustomizations/commit/6fd5ac54904797f82f3a3914faf6b0d92c2aed40))
+
+
+### Bug Fixes
+
+* **CI:** do not ignore oathkeeper-maester ([93c5103](https://github.com/meysam81/kustomizations/commit/93c5103960ce502530c7dd4f4e8e2cd59825c1d5))
+* **CI:** use flux CLI to push to OCI registry ([517aed4](https://github.com/meysam81/kustomizations/commit/517aed4c73bc1c795857636534d9d145d00d49c2))
+
+
+### Miscellaneous Chores
+
+* **docs:** add OCI relevant snippet ([4a7993c](https://github.com/meysam81/kustomizations/commit/4a7993c0931b3d4b5913927c2fe520816bd7a72c))
+
 ## [1.4.1](https://github.com/meysam81/kustomizations/compare/v1.4.0...v1.4.1) (2024-11-08)
 
 
