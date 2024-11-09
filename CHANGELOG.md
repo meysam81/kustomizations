@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.5](https://github.com/meysam81/kustomizations/compare/v1.4.4...v1.4.5) (2024-11-09)
+
+
+### Bug Fixes
+
+* **CI:** identity the release please to capture its output ([acf0f7e](https://github.com/meysam81/kustomizations/commit/acf0f7e9b6bdfbaf5c22484178a4dc08ba6bc5bb))
+
 ## [1.4.4](https://github.com/meysam81/kustomizations/compare/v1.4.3...v1.4.4) (2024-11-09)
 
 
