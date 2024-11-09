@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.3](https://github.com/meysam81/kustomizations/compare/v1.4.2...v1.4.3) (2024-11-09)
+
+
+### Miscellaneous Chores
+
+* **CI:** re-order keys in workflow ([5d2782c](https://github.com/meysam81/kustomizations/commit/5d2782cc7baeb042169f3cf15285343aff5a7990))
+
 ## [1.4.2](https://github.com/meysam81/kustomizations/compare/v1.4.1...v1.4.2) (2024-11-09)
 
 
