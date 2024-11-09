@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.4](https://github.com/meysam81/kustomizations/compare/v1.4.3...v1.4.4) (2024-11-09)
+
+
+### Bug Fixes
+
+* **CI:** pass release-please output to the next job ([28310e7](https://github.com/meysam81/kustomizations/commit/28310e7476cbe64a56d00983c097c78e579b9d74))
+
 ## [1.4.3](https://github.com/meysam81/kustomizations/compare/v1.4.2...v1.4.3) (2024-11-09)
 
 
