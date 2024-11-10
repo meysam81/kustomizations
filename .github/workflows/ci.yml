@@ -89,7 +89,7 @@ jobs:
       - checkov
       - ansible-lint
       - trivy
-    if: github_event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     permissions:
       packages: write
     runs-on: ubuntu-latest
