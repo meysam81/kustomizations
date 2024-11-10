@@ -1,0 +1,10 @@
+{
+  "default": "developer-friendly.blog",
+  "keys": [
+    {
+      "certPath": "/home/runner/.config/notation/localkeys/notation.crt",
+      "keyPath": "/home/runner/.config/notation/localkeys/notation.key",
+      "name": "developer-friendly.blog"
+    }
+  ]
+}

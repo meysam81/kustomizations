@@ -99,6 +99,18 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Cosign CLI
         uses: sigstore/cosign-installer@v3
+      - name: Setup Notation CLI
+        uses: notaryproject/notation-action/setup@v1
+        with:
+          version: "1.1.0"
+      - name: Setup Notation signing keys
+        run: |
+          mkdir -p ~/.config/notation/localkeys/
+          cp ./.notation/signingkeys.json ~/.config/notation/
+          cp ./.notation/notation.crt ~/.config/notation/localkeys/
+          echo "$NOTATION_KEY" > ~/.config/notation/localkeys/notation.key
+        env:
+          NOTATION_KEY: ${{ secrets.NOTATION_SIGNING_KEY }}
       - name: Setup Flux CLI
         uses: fluxcd/flux2/action@main
       - name: Login to GitHub Container Registry
@@ -130,6 +142,10 @@ jobs:
       - name: Sign artifacts with cosign
         run: |
           cosign sign --yes ${{ steps.push.outputs.digest-url }}
+      - name: Sign artifacts with Notation
+        run: |
+          notation sign --signature-format cose ghcr.io/${{ github.repository }}:${{ github.run_id }}
+          notation sign --signature-format cose ghcr.io/${{ github.repository }}:latest
 
   release-please:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
