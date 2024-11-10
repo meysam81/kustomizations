@@ -9,3 +9,6 @@ k3d-cluster-create:
 
 checkov:
   checkov --config-file .checkov_config.yaml -d .
+
+build-tar:
+  tar cvzf kustomizations.tar.gz $(find . -maxdepth 1 -type d ! -name '.*' | grep -v -f .buildignore)
