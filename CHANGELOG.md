@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.4.7](https://github.com/meysam81/kustomizations/compare/v1.4.6...v1.4.7) (2024-11-10)
+
+
+### Bug Fixes
+
+* **CI:** create identity for the runner to sign the artifact ([ac99965](https://github.com/meysam81/kustomizations/commit/ac99965317f13212d266c547a1918165c259a242))
+* **CI:** do not use modern algorithm as notation CLI breaks ([15b0166](https://github.com/meysam81/kustomizations/commit/15b016671ef7779c6602e77d723f9a78a83f0a82))
+* **CI:** manually login to GHCR ([f414a89](https://github.com/meysam81/kustomizations/commit/f414a890abe925557ca3e4ddb6bb377c79c1468e))
+* **CI:** modify cert format issue for notation CLI ([9f88582](https://github.com/meysam81/kustomizations/commit/9f885829fcbe75fa90a37679b5fee045db015c69))
+* **CI:** modify syntax error ([4ef5e8d](https://github.com/meysam81/kustomizations/commit/4ef5e8db04159855eec7daafd80a8f15932425a8))
+* **CI:** perform keyless signing of the artifact ([8f2f77b](https://github.com/meysam81/kustomizations/commit/8f2f77b3d61c97a2c903b34c50a2355845aeb9c2))
+
 ## [1.4.6](https://github.com/meysam81/kustomizations/compare/v1.4.5...v1.4.6) (2024-11-09)
 
 
