@@ -128,11 +128,8 @@ jobs:
           flux tag artifact oci://ghcr.io/${{ github.repository }}:${{ github.run_id }} --tag latest
           echo "digest-url=$digest_url" >> $GITHUB_OUTPUT
       - name: Sign artifacts with cosign
-        env:
-          COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
-          COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
         run: |
-          cosign sign --yes --key env://COSIGN_PRIVATE_KEY ${{ steps.push.outputs.digest-url }}
+          cosign sign --yes ${{ steps.push.outputs.digest-url }}
 
   release-please:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
