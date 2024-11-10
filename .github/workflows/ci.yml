@@ -168,9 +168,8 @@ jobs:
       - release-please
     if: needs.release-please.outputs.releases_created == 'true'
     permissions:
-      contents: write
-      id-token: write
       packages: write
+      id-token: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -181,19 +180,28 @@ jobs:
         uses: notaryproject/notation-action/setup@v1
         with:
           version: "1.1.0"
+      - name: Setup Notation signing keys
+        run: |
+          mkdir -p ~/.config/notation/localkeys/
+          cp ./.notation/signingkeys.json ~/.config/notation/
+          cp ./.notation/notation.crt ~/.config/notation/localkeys/
+          echo "$NOTATION_KEY" > ~/.config/notation/localkeys/notation.key
+        env:
+          NOTATION_KEY: ${{ secrets.NOTATION_SIGNING_KEY }}
       - name: Setup Flux CLI
         uses: fluxcd/flux2/action@main
-      - name: Build source
-        run: tar cvzf kustomizations.tar.gz $(find . -maxdepth 1 -type d ! -name '.*' | grep -v -f .buildignore)
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ github.token }}
-      - name: Push to ghcr OCI registry
+      - name: Build source
+        run: tar cvzf kustomizations.tar.gz $(find . -maxdepth 1 -type d ! -name '.*' | grep -v -f .buildignore)
+      - id: push
+        name: Push to ghcr OCI registry
         run: |
-          flux push artifact oci://ghcr.io/${{ github.repository }}:${{ needs.release-please.outputs.tag_name }} \
+          digest_url=$(flux push artifact oci://ghcr.io/${{ github.repository }}:${{ needs.release-please.outputs.tag_name }} \
             --path=kustomizations.tar.gz \
             --source=${{ github.server_url }}/${{ github.repository }} \
             --revision="$(git tag --points-at HEAD)@sha1:$(git rev-parse HEAD)" \
@@ -204,11 +212,12 @@ jobs:
             --annotations="org.opencontainers.image.revision=$(git rev-parse HEAD)" \
             --annotations="org.opencontainers.image.title=Kustomizations" \
             --annotations="org.opencontainers.image.url=${{ github.server_url }}/${{ github.repository }}" \
-            --annotations="org.opencontainers.image.version=$(git tag --points-at HEAD)"
-          flux tag artifact oci://ghcr.io/${{ github.repository }}:${{ needs.release-please.outputs.tag_name }} --tag latest
+            --annotations="org.opencontainers.image.version=$(git tag --points-at HEAD)" \
+            --output json | jq -r '. | .repository + "@" + .digest')
+          echo "digest-url=$digest_url" >> $GITHUB_OUTPUT
       - name: Sign artifacts with cosign
-        env:
-          COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
-          COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
         run: |
-          cosign sign --yes --key env://COSIGN_PRIVATE_KEY ghcr.io/${{ github.repository }}:${{ needs.release-please.outputs.tag_name }}
+          cosign sign --yes ${{ steps.push.outputs.digest-url }}
+      - name: Sign artifacts with Notation
+        run: |
+          notation sign --signature-format cose ghcr.io/${{ github.repository }}:${{ needs.release-please.outputs.tag_name }}
