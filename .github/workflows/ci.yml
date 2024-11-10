@@ -108,9 +108,10 @@ jobs:
           password: ${{ github.token }}
       - name: Build source
         run: tar cvzf kustomizations.tar.gz $(find . -maxdepth 1 -type d ! -name '.*' | grep -v -f .buildignore)
-      - name: Push to ghcr OCI registry
+      - id: push
+        name: Push to ghcr OCI registry
         run: |
-          flux push artifact oci://ghcr.io/${{ github.repository }}:${{ github.run_id }} \
+          digest_url=$(flux push artifact oci://ghcr.io/${{ github.repository }}:${{ github.run_id }} \
             --path=kustomizations.tar.gz \
             --source=${{ github.server_url }}/${{ github.repository }} \
             --revision="$(git tag --points-at HEAD)@sha1:$(git rev-parse HEAD)" \
@@ -121,14 +122,16 @@ jobs:
             --annotations="org.opencontainers.image.revision=$(git rev-parse HEAD)" \
             --annotations="org.opencontainers.image.title=Kustomizations" \
             --annotations="org.opencontainers.image.url=${{ github.server_url }}/${{ github.repository }}" \
-            --annotations="org.opencontainers.image.version=$(git tag --points-at HEAD)"
+            --annotations="org.opencontainers.image.version=$(git tag --points-at HEAD)" \
+            --output json | jq -r '. | .repository + "@" + .digest')
           flux tag artifact oci://ghcr.io/${{ github.repository }}:${{ github.run_id }} --tag latest
+          echo "digest-url=$digest_url" >> $GITHUB_OUTPUT
       - name: Sign artifacts with cosign
         env:
           COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
           COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
         run: |
-          cosign sign --yes --key env://COSIGN_PRIVATE_KEY ghcr.io/${{ github.repository }}:${{ needs.release-please.outputs.tag_name }}
+          cosign sign --yes --key env://COSIGN_PRIVATE_KEY ${{ steps.push.outputs.digest-url }}
 
   release-please:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
