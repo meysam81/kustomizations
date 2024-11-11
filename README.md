@@ -65,6 +65,11 @@ spec:
   ref:
     semver: '>=0.1.0'
   url: oci://ghcr.io/meysam81/kustomizations
+  verify:
+    provider: cosign
+    matchOIDCIdentity:
+      - issuer: "^https://token.actions.githubusercontent.com$"
+        subject: "^https://github.com/meysam81/kustomizations.*$"
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
