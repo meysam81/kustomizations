@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.4.8](https://github.com/meysam81/kustomizations/compare/v1.4.7...v1.4.8) (2024-11-25)
+
+
+### Bug Fixes
+
+* **kratos:** discover kratos-courier VMServiceScrape ([4f16095](https://github.com/meysam81/kustomizations/commit/4f160954fb70a66d6dafad5ba3bff9d3753f6e06))
+* **kratos:** scrape kratos-admin service only ([e814803](https://github.com/meysam81/kustomizations/commit/e814803ac7a5ec0333709b0064b9791002e90b23))
+* **oathkeeper:** discover metrics correctly ([9d3c6b9](https://github.com/meysam81/kustomizations/commit/9d3c6b9cbd5f2999d57afe2e45c02490f2585bb8))
+
+
+### Miscellaneous Chores
+
+* **docs:** add verify attribute to OCI Repository ([be210fe](https://github.com/meysam81/kustomizations/commit/be210feb7b0c7b9112fdb5fd5d5e78e41a8f2384))
+
 ## [1.4.7](https://github.com/meysam81/kustomizations/compare/v1.4.6...v1.4.7) (2024-11-10)
 
 
