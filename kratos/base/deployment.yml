@@ -82,7 +82,7 @@ spec:
           name: kratos-courier
           ports:
             - containerPort: 4435
-              name: http-metrics
+              name: http-courier
               protocol: TCP
           livenessProbe:
             failureThreshold: 5
@@ -91,7 +91,7 @@ spec:
                 - name: Host
                   value: 127.0.0.1
               path: /metrics/prometheus
-              port: http-metrics
+              port: http-courier
               scheme: HTTP
             initialDelaySeconds: 1
             periodSeconds: 10
@@ -104,7 +104,7 @@ spec:
                 - name: Host
                   value: 127.0.0.1
               path: /metrics/prometheus
-              port: http-metrics
+              port: http-courier
               scheme: HTTP
             initialDelaySeconds: 1
             periodSeconds: 10

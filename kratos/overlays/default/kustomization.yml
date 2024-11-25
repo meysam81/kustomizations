@@ -1,0 +1,19 @@
+configMapGenerator:
+  - name: kratos-config
+    files:
+      - config.yml=kratos-server-config.yml
+
+resources:
+  - ../../base
+
+images:
+  - name: oryd/kratos
+    newTag: v1.3.1-distroless
+
+patches:
+  - path: patch-deployment.yml
+    target:
+      kind: Deployment
+      name: kratos
+
+namespace: auth

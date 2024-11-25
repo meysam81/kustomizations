@@ -1,0 +1,14 @@
+dsn: memory
+
+courier:
+  smtp:
+    # checkov:skip=CKV_SECRET_4:Basic Auth Credentials
+    connection_uri: smtps://test:test@mailslurper:1025/?skip_ssl_verify=true
+
+selfservice:
+  default_browser_return_url: http://example.com
+
+identity:
+  schemas:
+    - id: default
+      url: https://github.com/ory/kratos/raw/refs/tags/v1.3.1/contrib/quickstart/kratos/email-password/identity.schema.json

@@ -1,0 +1,40 @@
+- op: add
+  path: /spec/template/spec/initContainers/0/volumeMounts
+  value:
+    - mountPath: /etc/kratos/config.yml
+      name: kratos-config
+      readOnly: true
+      subPath: config.yml
+- op: add
+  path: /spec/template/spec/containers/0/volumeMounts
+  value:
+    - mountPath: /etc/kratos/config.yml
+      name: kratos-config
+      readOnly: true
+      subPath: config.yml
+- op: add
+  path: /spec/template/spec/containers/1/volumeMounts
+  value:
+    - mountPath: /etc/kratos/config.yml
+      name: kratos-config
+      readOnly: true
+      subPath: config.yml
+- op: add
+  path: /spec/template/spec/volumes
+  value:
+    - configMap:
+        defaultMode: 0444
+        items:
+          - key: config.yml
+            path: config.yml
+        name: kratos-config
+      name: kratos-config
+- op: add
+  path: /spec/template/spec/initContainers/0/args/-
+  value: --config=/etc/kratos/config.yml
+- op: add
+  path: /spec/template/spec/containers/0/args/-
+  value: --config=/etc/kratos/config.yml
+- op: add
+  path: /spec/template/spec/containers/1/args/-
+  value: --config=/etc/kratos/config.yml
