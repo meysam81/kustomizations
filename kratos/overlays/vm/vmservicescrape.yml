@@ -9,8 +9,3 @@ spec:
       port: http-admin
       scheme: http
       scrapeTimeout: 10s
-    - interval: 30s
-      path: /metrics/prometheus
-      port: http-courier
-      scheme: http
-      scrapeTimeout: 10s

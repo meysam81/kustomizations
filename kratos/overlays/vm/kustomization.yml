@@ -63,9 +63,9 @@ patches:
 
 replacements:
   - source:
-      kind: Deployment
-      name: kratos
-      fieldPath: spec.template.metadata.labels
+      kind: Service
+      name: kratos-admin
+      fieldPath: metadata.labels
     targets:
       - select:
           kind: VMServiceScrape
