@@ -7,7 +7,7 @@ metadata:
     prometheus.io/instance: oathkeeper-metrics
 spec:
   ports:
-    - name: http
+    - name: http-metrics
       port: 80
       protocol: TCP
       targetPort: http-metrics

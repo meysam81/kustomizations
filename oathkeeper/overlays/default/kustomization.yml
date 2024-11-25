@@ -1,0 +1,20 @@
+---
+configMapGenerator:
+  - files:
+      - config.yml=oathkeeper-server-config.yml
+    name: oathkeeper-config
+
+resources:
+  - ../../base
+
+images:
+  - name: oryd/oathkeeper
+    newTag: v0.40.7-distroless
+
+patches:
+  - path: patch-deployment.yml
+    target:
+      kind: Deployment
+      name: oathkeeper
+
+namespace: auth

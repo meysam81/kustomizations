@@ -7,6 +7,6 @@ spec:
   endpoints:
     - interval: 60s
       path: /metrics/prometheus
-      port: http
+      port: http-metrics
       scheme: http
       scrapeTimeout: 30s

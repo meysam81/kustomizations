@@ -1,0 +1,20 @@
+- op: add
+  path: /spec/template/spec/containers/0/args/-
+  value: --config=/etc/oathkeeper/config.yml
+- op: add
+  path: /spec/template/spec/containers/0/volumeMounts/-
+  value:
+    mountPath: /etc/oathkeeper/config.yml
+    name: oathkeeper-config
+    readOnly: true
+    subPath: config.yml
+- op: add
+  path: /spec/template/spec/volumes/-
+  value:
+    configMap:
+      defaultMode: 0444
+      items:
+        - key: config.yml
+          path: config.yml
+      name: oathkeeper-config
+    name: oathkeeper-config

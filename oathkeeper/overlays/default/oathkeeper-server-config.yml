@@ -1,0 +1,63 @@
+---
+access_rules:
+  matching_strategy: regexp
+  repositories:
+    - file:///etc/rules/access-rules.json
+authenticators:
+  cookie_session:
+    config:
+      check_session_url: http://kratos-public/sessions/whoami
+      extra_from: "@this"
+      force_method: GET
+      only:
+        - ory_kratos_session
+      preserve_path: true
+      preserve_query: true
+      subject_from: identity.id
+    enabled: true
+authorizers:
+  allow:
+    enabled: true
+errors:
+  fallback:
+    - redirect
+    - json
+  handlers:
+    json:
+      config:
+        verbose: true
+      enabled: true
+    redirect:
+      config:
+        return_to_query_param: return_to
+        to: http://example.com
+        when:
+          - error:
+              - unauthorized
+      enabled: true
+log:
+  format: json
+  level: info
+mutators:
+  header:
+    config:
+      headers:
+        x-user-id: "{{ print .Subject }}"
+    enabled: true
+serve:
+  api:
+    port: 4456
+  proxy:
+    port: 4455
+    cors:
+      enabled: true
+      allowed_methods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - PATCH
+      allowed_origins:
+        - http://*.localhost:8080
+      allow_credentials: true
+      debug: false

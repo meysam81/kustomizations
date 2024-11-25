@@ -15,9 +15,23 @@ images:
     newTag: 1.31.3
 
 patches:
-  - patch: patch-deployment.yml
+  - path: patch-deployment.yml
     target:
       kind: Deployment
       name: oathkeeper
+
+replacements:
+  - source:
+      kind: Service
+      name: oathkeeper-metrics
+      fieldPath: metadata.labels
+    targets:
+      - select:
+          kind: VMServiceScrape
+          name: oathkeeper
+        fieldPaths:
+          - spec.selector.matchLabels
+        options:
+          create: true
 
 namespace: auth
