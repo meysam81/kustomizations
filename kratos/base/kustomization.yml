@@ -1,6 +1,11 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
+configMapGenerator:
+  - envs:
+      - configs.env
+    name: kratos-envs
+
 resources:
   - service-admin.yml
   - service-courier.yml

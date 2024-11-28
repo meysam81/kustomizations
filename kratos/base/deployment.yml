@@ -21,7 +21,9 @@ spec:
             - all
           command:
             - kratos
-          envFrom: []
+          envFrom:
+            - configMapRef:
+                name: kratos-envs
           image: oryd/kratos
           lifecycle: {}
           livenessProbe:
@@ -77,7 +79,9 @@ spec:
             - "--expose-metrics-port=4435"
           command:
             - kratos
-          envFrom: []
+          envFrom:
+            - configMapRef:
+                name: kratos-envs
           image: oryd/kratos
           name: kratos-courier
           ports:
@@ -130,7 +134,9 @@ spec:
             - "--yes"
           command:
             - kratos
-          envFrom: []
+          envFrom:
+            - configMapRef:
+                name: kratos-envs
           image: oryd/kratos
           name: kratos-automigrate
           resources: {}
