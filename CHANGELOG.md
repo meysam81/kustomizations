@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.9](https://github.com/meysam81/kustomizations/compare/v1.4.8...v1.4.9) (2024-11-28)
+
+
+### Miscellaneous Chores
+
+* **kratos:** mount kratos-envs to the containers ([9db6244](https://github.com/meysam81/kustomizations/commit/9db6244681b2207abd68c578521a69af401f38e7))
+
 ## [1.4.8](https://github.com/meysam81/kustomizations/compare/v1.4.7...v1.4.8) (2024-11-25)
 
 
