@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - serviceaccount.yml
+  - service-web.yml
+  - service-livechat.yml
+  - deployment.yml
+
+images:
+  - name: odoo
+
+labels:
+  - includeSelectors: true
+    pairs:
+      app.kubernetes.io/component: odoo
+      app.kubernetes.io/instance: odoo
+      app.kubernetes.io/managed-by: kustomize
+      app.kubernetes.io/name: odoo
+      app.kubernetes.io/part-of: odoo
+      app.kubernetes.io/version: 1.0.0

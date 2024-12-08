@@ -1,0 +1,80 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: odoo
+spec:
+  progressDeadlineSeconds: 300
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    spec:
+      containers:
+        - args: []
+          env: []
+          envFrom: []
+          image: odoo
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /web/health
+              port: web
+            initialDelaySeconds: 3
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 3
+          name: odoo
+          ports:
+            - containerPort: 8069
+              name: web
+            - containerPort: 8072
+              name: livechat
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /web/health
+              port: web
+            initialDelaySeconds: 3
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 3
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsGroup: 101
+            runAsNonRoot: true
+            runAsUser: 100
+          volumeMounts:
+            - mountPath: /var/lib/odoo
+              name: odoo-data
+            - mountPath: /home/odoo/.odoorc
+              name: odoorc
+            - mountPath: /tmp
+              name: tmp
+      initContainers: []
+      securityContext:
+        fsGroup: 101
+        fsGroupChangePolicy: Always
+        seccompProfile:
+          type: RuntimeDefault
+        supplementalGroups: []
+        sysctls: []
+      serviceAccountName: odoo
+      terminationGracePeriodSeconds: 120
+      volumes:
+        - emptyDir: {}
+          name: odoo-data
+        - emptyDir: {}
+          name: tmp
+        - emptyDir: {}
+          name: odoorc
+        - emptyDir: {}
+          name: etc-odoo
