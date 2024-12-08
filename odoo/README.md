@@ -4,6 +4,7 @@
 
 ```ini
 # odoo.conf
+[options]
 db_host = postgresql
 db_port = 5432
 db_user = odoo
