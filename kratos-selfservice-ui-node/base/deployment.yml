@@ -15,7 +15,7 @@ spec:
       containers:
         - envFrom:
             - configMapRef:
-                name: kratos-selfservice-ui-node
+                name: kratos-selfservice-ui-node-envs
           image: oryd/kratos-selfservice-ui-node
           imagePullPolicy: IfNotPresent
           livenessProbe:

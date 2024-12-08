@@ -4,7 +4,7 @@ kind: Kustomization
 configMapGenerator:
   - envs:
       - configs.env
-    name: kratos-selfservice-ui-node
+    name: kratos-selfservice-ui-node-envs
 
 resources:
   - service.yml
