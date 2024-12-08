@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.5.1](https://github.com/meysam81/kustomizations/compare/v1.5.0...v1.5.1) (2024-12-08)
+
+
+### Miscellaneous Chores
+
+* **docs:** add more docs to the current kustomization stacks ([c599d00](https://github.com/meysam81/kustomizations/commit/c599d00dc6e5045fc32df888cb4d8b7803012297))
+* **kratos-ui:** add docs and modify configmap name ([0b2e523](https://github.com/meysam81/kustomizations/commit/0b2e5237f3cac1a624f80902c8703a5610235c30))
+
 ## [1.5.0](https://github.com/meysam81/kustomizations/compare/v1.4.9...v1.5.0) (2024-12-08)
 
 
