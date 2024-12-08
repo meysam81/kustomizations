@@ -13,6 +13,8 @@
   - [Intro](#intro)
   - [Usage](#usage)
   - [OCI Registry](#oci-registry)
+    - [FluxCD](#fluxcd)
+    - [ArgoCD](#argocd)
   - [FAQ?](#faq)
     - [Why not use Helm?](#why-not-use-helm)
   - [Philosophy](#philosophy)
@@ -53,6 +55,8 @@ resources:
 This repository comes with an officially supported OCI registry. For usage with
 FluxCD, you can use the following snippet:
 
+### FluxCD
+
 ```yaml
 ---
 apiVersion: source.toolkit.fluxcd.io/v1beta2
@@ -87,6 +91,23 @@ spec:
   targetNamespace: default
   timeout: 5m
   wait: true
+```
+
+### ArgoCD
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: meysam81-kustomizations-repository
+  namespace: argocd
+  labels:
+    argocd.argoproj.io/secret-type: repository
+stringData:
+  project: default
+  url: ghcr.io/meysam81/kustomizations
+  type: helm
+  enableOCI: "true"
 ```
 
 ## FAQ?
