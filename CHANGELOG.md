@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/meysam81/kustomizations/compare/v1.4.9...v1.5.0) (2024-12-08)
+
+
+### Features
+
+* add odoo kustomization stack ([0d1f30a](https://github.com/meysam81/kustomizations/commit/0d1f30a3214d1a8effec953880f953b5e1831035))
+
 ## [1.4.9](https://github.com/meysam81/kustomizations/compare/v1.4.8...v1.4.9) (2024-11-28)
 
 
