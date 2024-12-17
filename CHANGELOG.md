@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.5.2](https://github.com/meysam81/kustomizations/compare/v1.5.1...v1.5.2) (2024-12-17)
+
+
+### Miscellaneous Chores
+
+* **deps:** update bitnami/kubectl docker tag to v1.31.4 ([#32](https://github.com/meysam81/kustomizations/issues/32)) ([1179b59](https://github.com/meysam81/kustomizations/commit/1179b59d372d1ffd776893e062810cbbbd5725e4))
+* **deps:** update bitnami/kubectl docker tag to v1.32.0 ([#37](https://github.com/meysam81/kustomizations/issues/37)) ([737a4ee](https://github.com/meysam81/kustomizations/commit/737a4eebabdd9120ac7c1463b91ddbdbc9bc1147))
+
 ## [1.5.1](https://github.com/meysam81/kustomizations/compare/v1.5.0...v1.5.1) (2024-12-08)
 
 
