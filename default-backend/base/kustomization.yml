@@ -1,3 +1,8 @@
+configMapGenerator:
+  - name: default-backend-envs
+    envs:
+      - configs.env
+
 resources:
   - service.yml
   - serviceaccount.yml

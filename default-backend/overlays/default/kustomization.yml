@@ -1,4 +1,8 @@
 resources:
   - ../../base
 
+images:
+  - name: ghcr.io/meysam81/default-backend
+    newTag: v1.1.1
+
 namespace: default

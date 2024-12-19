@@ -12,7 +12,10 @@ spec:
   template:
     spec:
       containers:
-        - image: ghcr.io/meysam81/default-backend
+        - envFrom:
+          - configMapRef:
+              name: default-backend-envs
+          image: ghcr.io/meysam81/default-backend
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 3
