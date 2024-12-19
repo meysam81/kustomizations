@@ -2,6 +2,9 @@ configMapGenerator:
   - name: listings-directory-static
     files:
       - static/listings.json
+  - name: listings-directory-envs
+    envs:
+      - configs.env
 
 resources:
   - deployment.yml

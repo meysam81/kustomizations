@@ -13,7 +13,10 @@ spec:
   template:
     spec:
       containers:
-        - image: ghcr.io/meysam81/listings-directory
+        - envFrom:
+            - configMapRef:
+                name: listings-directory-envs
+          image: ghcr.io/meysam81/listings-directory
           livenessProbe:
             failureThreshold: 3
             httpGet:

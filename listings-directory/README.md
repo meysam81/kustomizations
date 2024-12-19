@@ -22,6 +22,12 @@
 }
 ```
 
+```ini
+# configs.env
+# ref: https://static-web-server.net/configuration/environment-variables/
+SERVER_LOG_FORWARDED_FOR=true
+```
+
 ```yaml
 # kustomization.yml
 configMapGenerator:
@@ -29,9 +35,13 @@ configMapGenerator:
     files:
       - static/listings.json
     behavior: replace
+  - name: listings-directory-envs
+    envs:
+      - configs.env
+    behavior: replace
 
 resources:
-  - https://github.com/meysam81/kustomizations//listings-directory/default/?ref=v1.6.0
+  - https://github.com/meysam81/kustomizations//listings-directory/overlays/default/?ref=v1.6.1
 
 namespace: default
 ```

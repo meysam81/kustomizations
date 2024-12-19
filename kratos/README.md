@@ -25,7 +25,7 @@ configMapGenerator:
     behavior: replace
 
 resources:
-  - https://github.com/meysam81/kustomizations//kratos/vm/?ref=v1.3.1
+  - https://github.com/meysam81/kustomizations//kratos/overlays/vm/?ref=v1.3.1
 
 namespace: auth
 ```
