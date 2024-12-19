@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.1](https://github.com/meysam81/kustomizations/compare/v1.6.0...v1.6.1) (2024-12-19)
+
+
+### Miscellaneous Chores
+
+* **directory:** add envs configmap to the container ([bfe04ec](https://github.com/meysam81/kustomizations/commit/bfe04ec5906a37a2efaaeff30e7c4b2265f55f17))
+
 ## [1.6.0](https://github.com/meysam81/kustomizations/compare/v1.5.2...v1.6.0) (2024-12-19)
 
 
