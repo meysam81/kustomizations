@@ -13,8 +13,8 @@ spec:
     spec:
       containers:
         - envFrom:
-          - configMapRef:
-              name: default-backend-envs
+            - configMapRef:
+                name: default-backend-envs
           image: ghcr.io/meysam81/default-backend
           imagePullPolicy: IfNotPresent
           livenessProbe:
