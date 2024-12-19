@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.6.0](https://github.com/meysam81/kustomizations/compare/v1.5.2...v1.6.0) (2024-12-19)
+
+
+### Features
+
+* add listings directory ([9db12d5](https://github.com/meysam81/kustomizations/commit/9db12d5e4606dfce03dfaf8427186a9786545d29))
+
+
+### Miscellaneous Chores
+
+* **oathkeeper:** replace rolebinding subject with SA namespace ([a053089](https://github.com/meysam81/kustomizations/commit/a053089616879265a6c319c82fa4277dfc786137))
+
 ## [1.5.2](https://github.com/meysam81/kustomizations/compare/v1.5.1...v1.5.2) (2024-12-17)
 
 
