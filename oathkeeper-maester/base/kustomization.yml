@@ -31,6 +31,14 @@ replacements:
         select:
           kind: ClusterRoleBinding
           name: oathkeeper-maester-role-binding
+  - source:
+      kind: ServiceAccount
+      fieldPath: metadata.namespace
+    targets:
+      - select:
+          kind: ClusterRoleBinding
+        fieldPaths:
+          - subjects.0.namespace
 
 resources:
   # - https://github.com/ory/oathkeeper-maester//config/crd?timeout=30s&ref=v0.1.11
