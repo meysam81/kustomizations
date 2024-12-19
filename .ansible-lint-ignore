@@ -1,5 +1,7 @@
-.github/workflows/ci.yml yaml[line-length]
-kratos/test/vm/deployment.yml yaml[octal-values]
+# This file contains ignores rule violations for ansible-lint
+kratos/overlays/default/patch-deployment.yml yaml[octal-values]
+kratos/overlays/vm/patch-deployment.yml yaml[octal-values]
+listings-directory/base/deployment.yml yaml[octal-values]
 oathkeeper-maester/base/crds-v0.1.10.yml yaml[line-length]
-oathkeeper-maester/base/crds-v0.1.11.yml yaml[line-length]
-oathkeeper/base/deployment.yml yaml[octal-values]
+oathkeeper/overlays/default/patch-deployment.yml yaml[octal-values]
+oathkeeper/overlays/vm/patch-deployment.yml yaml[octal-values]
