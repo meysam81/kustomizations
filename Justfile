@@ -1,4 +1,4 @@
-check:
+lint:
   pre-commit run -a
 
 trivy:
