@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.6.2](https://github.com/meysam81/kustomizations/compare/v1.6.1...v1.6.2) (2024-12-19)
+
+
+### Bug Fixes
+
+* **CI:** make ansible-lint happy ([a4e9ff0](https://github.com/meysam81/kustomizations/commit/a4e9ff01b7e4898aaa5413c13ad10b5edafeda67))
+
+
+### Miscellaneous Chores
+
+* **default-backend:** add env vars and update image to v1.1.1 ([e2da1cc](https://github.com/meysam81/kustomizations/commit/e2da1ccc020533f0ac34f90b61f4c1b5c032b7e2))
+
 ## [1.6.1](https://github.com/meysam81/kustomizations/compare/v1.6.0...v1.6.1) (2024-12-19)
 
 
