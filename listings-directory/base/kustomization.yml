@@ -1,0 +1,23 @@
+configMapGenerator:
+  - name: listings-directory-static
+    files:
+      - static/listings.json
+
+resources:
+  - deployment.yml
+  - service.yml
+
+images:
+  - name: ghcr.io/meysam81/listings-directory
+
+labels:
+  - includeSelectors: true
+    pairs:
+      app.kubernetes.io/component: listings-directory
+      app.kubernetes.io/instance: listings-directory
+      app.kubernetes.io/managed-by: Kustomize
+      app.kubernetes.io/name: listings-directory
+      app.kubernetes.io/part-of: listings-directory
+      app.kubernetes.io/version: v1.0.0
+
+namespace: default
