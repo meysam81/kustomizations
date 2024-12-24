@@ -3,6 +3,6 @@ resources:
 
 images:
   - name: ghcr.io/developer-friendly/kratos-admin-ui
-    newTag: v0.1.0
+    newTag: v2.6.0
 
 namespace: auth
