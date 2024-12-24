@@ -1,6 +1,6 @@
 # Kratos Selfservice UI Node
 
-## usage
+## Usage
 
 ```ini
 # configs.env
