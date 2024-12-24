@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0](https://github.com/meysam81/kustomizations/compare/v1.6.2...v1.7.0) (2024-12-24)
+
+
+### Features
+
+* create kratos-admin-ui stack ([8515920](https://github.com/meysam81/kustomizations/commit/8515920ce3e5d1ca8cb780d6aa8e498e177e50a0))
+
 ## [1.6.2](https://github.com/meysam81/kustomizations/compare/v1.6.1...v1.6.2) (2024-12-19)
 
 
