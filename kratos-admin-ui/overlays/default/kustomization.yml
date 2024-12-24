@@ -1,0 +1,8 @@
+resources:
+  - ../../base
+
+images:
+  - name: ghcr.io/developer-friendly/kratos-admin-ui
+    newTag: v0.1.0
+
+namespace: auth

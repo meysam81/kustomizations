@@ -1,0 +1,22 @@
+resources:
+  - service.yml
+  - serviceaccount.yml
+  - deployment.yml
+
+images:
+  - name: ghcr.io/meysam81/kratos-admin-ui
+
+configMapGenerator:
+  - name: kratos-admin-ui-envs
+    envs:
+      - configs.env
+
+labels:
+  - includeSelectors: true
+    pairs:
+      app.kubernetes.io/component: kratos-admin-ui
+      app.kubernetes.io/instance: kratos-admin-ui
+      app.kubernetes.io/managed-by: Kustomize
+      app.kubernetes.io/name: kratos-admin-ui
+      app.kubernetes.io/part-of: kratos-admin-ui
+      app.kubernetes.io/version: v1.0.0
