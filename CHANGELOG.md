@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.7.2](https://github.com/meysam81/kustomizations/compare/v1.7.1...v1.7.2) (2024-12-25)
+
+
+### Bug Fixes
+
+* **CI:** make ansible-lint happy ([8f68d12](https://github.com/meysam81/kustomizations/commit/8f68d125e6eb975285fc4ffab17f882f2ef42952))
+* **kratos-admin:** modify typo ([2de11be](https://github.com/meysam81/kustomizations/commit/2de11be037ab845d76abab409c1fab8dde4f33c4))
+
+
+### Miscellaneous Chores
+
+* ignore non-manifest files ([581bccb](https://github.com/meysam81/kustomizations/commit/581bccb458f6174e99296f55ae0eca90c037c280))
+
 ## [1.7.1](https://github.com/meysam81/kustomizations/compare/v1.7.0...v1.7.1) (2024-12-25)
 
 
