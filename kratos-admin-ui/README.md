@@ -21,5 +21,5 @@ configMapGenerator:
     behavior: replace
 
 resources:
-  - github.com/meysam81/kustomizations//kratos-admin-ui/overlays/default?ref=v1.7.1&timeout=5m
+  - github.com/meysam81/kustomizations//kratos-admin-ui/overlays/default?ref=v1.7.2&timeout=5m
 ```
