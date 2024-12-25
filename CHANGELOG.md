@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.7.1](https://github.com/meysam81/kustomizations/compare/v1.7.0...v1.7.1) (2024-12-25)
+
+
+### Bug Fixes
+
+* **CI:** specify directory for flux push artifact command ([0e37f0c](https://github.com/meysam81/kustomizations/commit/0e37f0c4463131b9ee03e9351cdb8fc8452152b6))
+
+
+### Miscellaneous Chores
+
+* **kratos-admin:** allow for modifying the kratos URLs ([f6dbfd8](https://github.com/meysam81/kustomizations/commit/f6dbfd85ec946119497f81014fa29cc9c245a421))
+
 ## [1.7.0](https://github.com/meysam81/kustomizations/compare/v1.6.2...v1.7.0) (2024-12-24)
 
 
