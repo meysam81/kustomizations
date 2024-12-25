@@ -1,0 +1,15 @@
+.ansible-lint-ignore
+.checkov_config.yaml
+.notation
+.notation/notation.crt
+.notation/signingkeys.json
+.notation/step.tpl
+.pre-commit-config.yaml
+.sourceignore
+CHANGELOG.md
+Justfile
+LICENSE
+README.md
+k3d-config.yml
+renovate.json
+trivy.yaml
