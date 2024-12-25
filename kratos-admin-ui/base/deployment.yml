@@ -56,7 +56,7 @@ spec:
       serviceAccountName: kratos-admin-ui
       volumes:
         - configMap:
-            defualtMode: 0440
+            defaultMode: 0440
             name: kratos-admin-ui-statics
             optional: false
           name: statics
