@@ -10,6 +10,9 @@ configMapGenerator:
   - name: kratos-admin-ui-envs
     envs:
       - configs.env
+  - name: kratos-admin-ui-statics
+    files:
+      - config.json
 
 labels:
   - includeSelectors: true

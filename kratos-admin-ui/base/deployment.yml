@@ -13,7 +13,8 @@ spec:
           image: ghcr.io/meysam81/kratos-admin-ui
           livenessProbe:
             failureThreshold: 3
-            tcpSocket:
+            httpGet:
+              path: /health
               port: http
             initialDelaySeconds: 3
             periodSeconds: 10
@@ -25,7 +26,8 @@ spec:
               name: http
           readinessProbe:
             failureThreshold: 3
-            tcpSocket:
+            httpGet:
+              path: /health
               port: http
             initialDelaySeconds: 3
             periodSeconds: 10
@@ -42,9 +44,19 @@ spec:
             runAsGroup: 65534
             runAsNonRoot: true
             runAsUser: 65534
+          volumeMounts:
+            - mountPath: /public/config.json
+              name: statics
+              subPath: config.json
       securityContext:
         fsGroup: 65534
         fsGroupChangePolicy: OnRootMismatch
         seccompProfile:
           type: RuntimeDefault
       serviceAccountName: kratos-admin-ui
+      volumes:
+        - configMap:
+            defualtMode: 0440
+            name: kratos-admin-ui-statics
+            optional: false
+          name: statics
