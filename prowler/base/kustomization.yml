@@ -4,6 +4,7 @@ configMapGenerator:
       - configs.env
 
 resources:
+  - serviceaccount.yml
   - deployment.yml
   - service-api.yml
   - service-ui.yml
@@ -13,8 +14,6 @@ images:
     newTag: 5.0.5
   - name: prowlercloud/prowler-ui
     newTag: 5.0.5
-  - name: postgres
-    newTag: 16-alpine
   - name: valkey/valkey
     newTag: 8-alpine
 

@@ -52,4 +52,5 @@ spec:
           image: prowlercloud/prowler-api
           name: worker-beat
           resources: {}
-      terminationGracePeriodSeconds: 1
+      serviceAccountName: prowler
+      terminationGracePeriodSeconds: 300
