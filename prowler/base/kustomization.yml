@@ -14,8 +14,6 @@ images:
     newTag: 5.0.5
   - name: prowlercloud/prowler-ui
     newTag: 5.0.5
-  - name: valkey/valkey
-    newTag: 8-alpine
 
 labels:
   - includeSelectors: true
