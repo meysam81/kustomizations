@@ -7,8 +7,9 @@ configMapGenerator:
       - configs.env
 
 resources:
-  - deployment.yml
+  - serviceaccount.yml
   - service.yml
+  - deployment.yml
 
 images:
   - name: ghcr.io/meysam81/listings-directory
