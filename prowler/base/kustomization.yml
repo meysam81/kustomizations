@@ -5,7 +5,8 @@ configMapGenerator:
 
 resources:
   - deployment.yml
-  - service.yml
+  - service-api.yml
+  - service-ui.yml
 
 images:
   - name: prowlercloud/prowler-api
