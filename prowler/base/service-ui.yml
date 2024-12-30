@@ -1,0 +1,11 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prowler-ui
+spec:
+  ports:
+    - name: ui
+      port: 80
+      protocol: TCP
+      targetPort: ui

@@ -1,0 +1,55 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prowler
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    spec:
+      containers:
+        - command:
+            - ../docker-entrypoint.sh
+            - prod
+          envFrom:
+            - configMapRef:
+                name: prowler-envs
+          image: prowlercloud/prowler-api
+          name: api
+          ports:
+            - containerPort: 8080
+              name: api
+          resources: {}
+        - envFrom:
+            - configMapRef:
+                name: prowler-envs
+          image: prowlercloud/prowler-ui
+          name: ui
+          ports:
+            - containerPort: 3000
+              name: ui
+          resources: {}
+        - command:
+            - ../docker-entrypoint.sh
+            - worker
+          envFrom:
+            - configMapRef:
+                name: prowler-envs
+          image: prowlercloud/prowler-api
+          name: worker
+          resources: {}
+        - command:
+            - ../docker-entrypoint.sh
+            - beat
+          envFrom:
+            - configMapRef:
+                name: prowler-envs
+          image: prowlercloud/prowler-api
+          name: worker-beat
+          resources: {}
+      terminationGracePeriodSeconds: 1

@@ -1,0 +1,28 @@
+configMapGenerator:
+  - name: prowler-envs
+    envs:
+      - configs.env
+
+resources:
+  - deployment.yml
+  - service.yml
+
+images:
+  - name: prowlercloud/prowler-api
+    newTag: 5.0.5
+  - name: prowlercloud/prowler-ui
+    newTag: 5.0.5
+  - name: postgres
+    newTag: 16-alpine
+  - name: valkey/valkey
+    newTag: 8-alpine
+
+labels:
+  - includeSelectors: true
+    pairs:
+      app.kubernetes.io/component: prowler
+      app.kubernetes.io/instance: prowler
+      app.kubernetes.io/managed-by: kustomize
+      app.kubernetes.io/name: prowler
+      app.kubernetes.io/part-of: prowler
+      app.kubernetes.io/version: 1.0.0
