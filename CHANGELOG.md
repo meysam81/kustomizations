@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.8.0](https://github.com/meysam81/kustomizations/compare/v1.7.2...v1.8.0) (2024-12-30)
+
+
+### Features
+
+* **audit:** add prowler stack ([de17c65](https://github.com/meysam81/kustomizations/commit/de17c657e3eef3f92f091626a91e3a951a156c3f))
+
+
+### Bug Fixes
+
+* modify missing filenames ([49fb784](https://github.com/meysam81/kustomizations/commit/49fb7845211f9f4d6811d5bd7980a4542fd35707))
+
+
+### Miscellaneous Chores
+
+* add serviceaccount for listings-directory ([04f36fa](https://github.com/meysam81/kustomizations/commit/04f36fa96c0a50f82cf5a2a6035539cd9243404b))
+
 ## [1.7.2](https://github.com/meysam81/kustomizations/compare/v1.7.1...v1.7.2) (2024-12-25)
 
 
