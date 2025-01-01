@@ -4,23 +4,20 @@ configMapGenerator:
       - configs.env
 
 resources:
+  - service.yml
   - serviceaccount.yml
   - deployment.yml
-  - service-api.yml
-  - service-ui.yml
 
 images:
-  - name: prowlercloud/prowler-api
-    newTag: 5.0.5
-  - name: prowlercloud/prowler-ui
+  - name: toniblyx/prowler
     newTag: 5.0.5
 
 labels:
-  - includeSelectors: true
-    pairs:
+  - pairs:
       app.kubernetes.io/component: prowler
       app.kubernetes.io/instance: prowler
       app.kubernetes.io/managed-by: kustomize
       app.kubernetes.io/name: prowler
       app.kubernetes.io/part-of: prowler
       app.kubernetes.io/version: 1.0.0
+    includeSelectors: true

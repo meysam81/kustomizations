@@ -4,6 +4,7 @@ kind: Deployment
 metadata:
   name: prowler
 spec:
+  progressDeadlineSeconds: 60
   replicas: 1
   strategy:
     rollingUpdate:
@@ -13,44 +14,56 @@ spec:
   template:
     spec:
       containers:
-        - command:
-            - ../docker-entrypoint.sh
-            - prod
+        - args:
+            - dashboard
           envFrom:
             - configMapRef:
                 name: prowler-envs
-          image: prowlercloud/prowler-api
-          name: api
+          image: toniblyx/prowler
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 3
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 3
+          name: prowler
           ports:
-            - containerPort: 8080
-              name: api
+            - containerPort: 11666
+              name: http
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 3
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 3
           resources: {}
-        - envFrom:
-            - configMapRef:
-                name: prowler-envs
-          image: prowlercloud/prowler-ui
-          name: ui
-          ports:
-            - containerPort: 3000
-              name: ui
-          resources: {}
-        - command:
-            - ../docker-entrypoint.sh
-            - worker
-          envFrom:
-            - configMapRef:
-                name: prowler-envs
-          image: prowlercloud/prowler-api
-          name: worker
-          resources: {}
-        - command:
-            - ../docker-entrypoint.sh
-            - beat
-          envFrom:
-            - configMapRef:
-                name: prowler-envs
-          image: prowlercloud/prowler-api
-          name: worker-beat
-          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsGroup: 65534
+            runAsNonRoot: true
+            runAsUser: 65534
+          volumeMounts:
+            - mountPath: /home/prowler/output
+              name: prowler-output
+      securityContext:
+        fsGroup: 65534
+        fsGroupChangePolicy: Always
+        seccompProfile:
+          type: RuntimeDefault
+        supplementalGroups: []
+        sysctls: []
       serviceAccountName: prowler
-      terminationGracePeriodSeconds: 300
+      terminationGracePeriodSeconds: 1
+      volumes:
+        - emptyDir: {}
+          name: prowler-output
