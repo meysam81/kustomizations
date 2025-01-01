@@ -25,7 +25,7 @@ spec:
             httpGet:
               path: /
               port: http
-            initialDelaySeconds: 3
+            initialDelaySeconds: 5
             periodSeconds: 5
             successThreshold: 1
             timeoutSeconds: 3
@@ -38,7 +38,7 @@ spec:
             httpGet:
               path: /
               port: http
-            initialDelaySeconds: 3
+            initialDelaySeconds: 5
             periodSeconds: 5
             successThreshold: 1
             timeoutSeconds: 3
@@ -52,6 +52,7 @@ spec:
             runAsGroup: 65534
             runAsNonRoot: true
             runAsUser: 65534
+          terminationMessagePolicy: FallbackToLogsOnError
           volumeMounts:
             - mountPath: /home/prowler/output
               name: prowler-output
