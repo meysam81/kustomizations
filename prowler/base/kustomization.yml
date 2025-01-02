@@ -4,6 +4,8 @@ configMapGenerator:
       - configs.env
 
 resources:
+  - clusterrole.yml
+  - clusterrolebinding.yml
   - service.yml
   - serviceaccount.yml
   - deployment.yml
