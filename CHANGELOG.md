@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.1](https://github.com/meysam81/kustomizations/compare/v1.8.0...v1.8.1) (2025-01-02)
+
+
+### Miscellaneous Chores
+
+* **prowler:** add in-cluster rbac resources ([58fad5d](https://github.com/meysam81/kustomizations/commit/58fad5d347d997f79251568cfaebea2b0b023481))
+
 ## [1.8.0](https://github.com/meysam81/kustomizations/compare/v1.7.2...v1.8.0) (2024-12-30)
 
 
