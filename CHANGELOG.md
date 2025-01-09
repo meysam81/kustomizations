@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/meysam81/kustomizations/compare/v1.8.1...v2.0.0) (2025-01-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove namespace creation from amazon-eks-identity stack
+
+### Miscellaneous Chores
+
+* remove namespace creation from amazon-eks-identity stack ([c86be70](https://github.com/meysam81/kustomizations/commit/c86be70de28c93ca72e7d51d8cd0368775ae72a6))
+
 ## [1.8.1](https://github.com/meysam81/kustomizations/compare/v1.8.0...v1.8.1) (2025-01-02)
 
 
