@@ -1,5 +1,4 @@
 resources:
-  - namespace.yml
   - clusterissuer.yml
   - certificate.yml
   - clusterrole.yml
@@ -24,12 +23,12 @@ labels:
       app.kubernetes.io/part-of: amazon-eks-pod-identity-webhook
       app.kubernetes.io/version: v1.0.0
 
-namespace: amazon-eks-pod-identity-webhook
+namespace: kube-system
 
 replacements:
   - source:
-      kind: Namespace
-      fieldPath: metadata.name
+      kind: Certificate
+      fieldPath: metadata.namespace
     targets:
       - select:
           kind: Certificate
