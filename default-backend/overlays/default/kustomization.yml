@@ -3,6 +3,6 @@ resources:
 
 images:
   - name: ghcr.io/meysam81/default-backend
-    newTag: v1.1.1
+    newTag: v1.1.2
 
 namespace: default
