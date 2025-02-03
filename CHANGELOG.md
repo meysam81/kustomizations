@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.1.0](https://github.com/meysam81/kustomizations/compare/v2.0.0...v2.1.0) (2025-02-03)
+
+
+### Features
+
+* complete one-click deployment for prowler ([f65da3a](https://github.com/meysam81/kustomizations/commit/f65da3ab066bac7a231b55792c681e33db0735cb))
+
+
+### Miscellaneous Chores
+
+* disable echo-server environment ([2956dd9](https://github.com/meysam81/kustomizations/commit/2956dd902f2137759ed08dc4d268551e0e364a42))
+
 ## [2.0.0](https://github.com/meysam81/kustomizations/compare/v1.8.1...v2.0.0) (2025-01-09)
 
 
