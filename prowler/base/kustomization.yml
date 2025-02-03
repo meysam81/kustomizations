@@ -1,25 +1,35 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
 configMapGenerator:
-  - name: prowler-envs
-    envs:
+  - envs:
       - configs.env
+    name: prowler-envs
+  - files:
+      - scripts/restart-prowler-dashboard.sh
+    name: prowler-scripts
 
 resources:
-  - clusterrole.yml
   - clusterrolebinding.yml
+  - cronjob.yml
+  - deployment.yml
+  - role.yml
+  - rolebinding.yml
   - service.yml
   - serviceaccount.yml
-  - deployment.yml
 
 images:
   - name: toniblyx/prowler
-    newTag: 5.2.0
+    newTag: 5.0.5
+  - name: bitnami/kubectl
+    newTag: "1.32"
 
 labels:
-  - pairs:
+  - includeSelectors: true
+    pairs:
       app.kubernetes.io/component: prowler
       app.kubernetes.io/instance: prowler
       app.kubernetes.io/managed-by: kustomize
       app.kubernetes.io/name: prowler
       app.kubernetes.io/part-of: prowler
       app.kubernetes.io/version: 1.0.0
-    includeSelectors: true

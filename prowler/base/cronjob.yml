@@ -1,0 +1,86 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: prowler
+spec:
+  concurrencyPolicy: Replace
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      completions: 1
+      parallelism: 1
+      template:
+        spec:
+          containers:
+            - command:
+                - /usr/local/bin/restart-prowler-dashboard.sh
+              env:
+                - name: POD_NAME
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: v1
+                      fieldPath: metadata.name
+                - name: POD_NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: v1
+                      fieldPath: metadata.namespace
+              envFrom:
+                - configMapRef:
+                    name: prowler-envs
+              image: bitnami/kubectl
+              name: restart-prowler-dashboard
+              terminationMessagePolicy: FallbackToLogsOnError
+              volumeMounts:
+                - mountPath: /usr/local/bin/restart-prowler-dashboard.sh
+                  name: prowler-scripts
+                  subPath: restart-prowler-dashboard.sh
+          initContainers:
+            - args:
+                - kubernetes
+                - "--ignore-exit-code-3"
+              envFrom:
+                - configMapRef:
+                    name: prowler-envs
+              image: toniblyx/prowler
+              name: scan-kubernetes
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                readOnlyRootFilesystem: true
+                runAsGroup: 65534
+                runAsNonRoot: true
+                runAsUser: 65534
+              terminationMessagePolicy: FallbackToLogsOnError
+              volumeMounts:
+                - mountPath: /home/prowler/output
+                  name: prowler-output
+          restartPolicy: Never
+          securityContext:
+            fsGroup: 65534
+            fsGroupChangePolicy: Always
+            seccompProfile:
+              type: RuntimeDefault
+            supplementalGroups: []
+            sysctls: []
+          serviceAccountName: prowler
+          terminationGracePeriodSeconds: 1
+          tolerations:
+            - effect: NoSchedule
+              operator: Exists
+          volumes:
+            - name: prowler-output
+              persistentVolumeClaim:
+                claimName: prowler
+            - configMap:
+                defaultMode: 0555
+                name: prowler-scripts
+                optional: false
+              name: prowler-scripts
+      ttlSecondsAfterFinished: 86400
+  schedule: 0 0 * * *
+  successfulJobsHistoryLimit: 0

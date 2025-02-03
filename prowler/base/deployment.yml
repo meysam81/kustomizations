@@ -66,5 +66,6 @@ spec:
       serviceAccountName: prowler
       terminationGracePeriodSeconds: 1
       volumes:
-        - emptyDir: {}
-          name: prowler-output
+        - name: prowler-output
+          persistentVolumeClaim:
+            claimName: prowler
