@@ -1,5 +1,20 @@
 # Changelog
 
+## [2.2.0](https://github.com/meysam81/kustomizations/compare/v2.1.0...v2.2.0) (2025-02-24)
+
+
+### Features
+
+* add flux2 monitoring stack ([4817690](https://github.com/meysam81/kustomizations/commit/4817690bdc2e6b356c3d0487312c00ced5299d6b))
+
+
+### Miscellaneous Chores
+
+* **deps:** update bitnami/kubectl docker tag to v1.32.2 ([#54](https://github.com/meysam81/kustomizations/issues/54)) ([1dfcf46](https://github.com/meysam81/kustomizations/commit/1dfcf46b7ceb76eb8b7371a3473635b359d65e96))
+* **deps:** update ghcr.io/meysam81/default-backend docker tag to v1.1.2 ([#52](https://github.com/meysam81/kustomizations/issues/52)) ([b1eb03a](https://github.com/meysam81/kustomizations/commit/b1eb03a6aeb26ca47c6d64552f85020c36f9d72f))
+* **deps:** update oryd/oathkeeper docker tag to v0.40.9 ([#51](https://github.com/meysam81/kustomizations/issues/51)) ([127430a](https://github.com/meysam81/kustomizations/commit/127430ab01d4e4b069d05121b57fbbe2a99f5959))
+* **deps:** update toniblyx/prowler docker tag to v5.3.0 ([#50](https://github.com/meysam81/kustomizations/issues/50)) ([fc85551](https://github.com/meysam81/kustomizations/commit/fc85551ccd427369b75c4d0baea0b1e1a521c68c))
+
 ## [2.1.0](https://github.com/meysam81/kustomizations/compare/v2.0.0...v2.1.0) (2025-02-03)
 
 
