@@ -9,7 +9,7 @@ resources:
 
 images:
   - name: oryd/oathkeeper
-    newTag: v0.40.8-distroless
+    newTag: v0.40.9-distroless
 
 patches:
   - path: patch-deployment.yml
