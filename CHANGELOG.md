@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.1](https://github.com/meysam81/kustomizations/compare/v2.2.0...v2.2.1) (2025-02-27)
+
+
+### Miscellaneous Chores
+
+* **prowler:** keep the last 3 jobs of prowler ([a75c514](https://github.com/meysam81/kustomizations/commit/a75c51425abe009507d02f94702aaf8583f09740))
+
 ## [2.2.0](https://github.com/meysam81/kustomizations/compare/v2.1.0...v2.2.0) (2025-02-24)
 
 
