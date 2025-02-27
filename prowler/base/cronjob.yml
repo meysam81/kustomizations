@@ -83,4 +83,4 @@ spec:
               name: prowler-scripts
       ttlSecondsAfterFinished: 86400
   schedule: 0 0 * * *
-  successfulJobsHistoryLimit: 0
+  successfulJobsHistoryLimit: 3
