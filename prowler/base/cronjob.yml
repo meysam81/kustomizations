@@ -32,6 +32,15 @@ spec:
                     name: prowler-envs
               image: bitnami/kubectl
               name: restart-prowler-dashboard
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                readOnlyRootFilesystem: true
+                runAsGroup: 65534
+                runAsNonRoot: true
+                runAsUser: 65534
               terminationMessagePolicy: FallbackToLogsOnError
               volumeMounts:
                 - mountPath: /usr/local/bin/restart-prowler-dashboard.sh
