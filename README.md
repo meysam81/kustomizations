@@ -1,5 +1,6 @@
 # Kustomizations
 
+[![Renovate](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://developer.mend.io/github/meysam81/kustomizations)
 [![GitHub issues](https://img.shields.io/github/issues/meysam81/kustomizations)](https://github.com/meysam81/kustomizations/issues)
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/meysam81/kustomizations)](https://github.com/meysam81/kustomizations/pulls)
 [![GitHub](https://img.shields.io/github/license/meysam81/kustomizations)](https://github.com/meysam81/kustomizations/blob/main/LICENSE)
