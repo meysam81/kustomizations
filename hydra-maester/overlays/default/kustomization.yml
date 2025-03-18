@@ -1,0 +1,8 @@
+resources:
+  - ../../base
+
+images:
+  - name: oryd/hydra-maester
+    newTag: v0.0.36
+
+namespace: auth
