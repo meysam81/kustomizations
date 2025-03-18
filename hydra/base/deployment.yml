@@ -1,0 +1,96 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hydra
+spec:
+  replicas: 1
+  revisionHistoryLimit: 5
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - args:
+            - serve
+            - all
+            - "--config=/etc/config/hydra.yml"
+          command:
+            - hydra
+          envFrom:
+            - configMapRef:
+                name: hydra-envs
+          image: oryd/hydra
+          imagePullPolicy: IfNotPresent
+          lifecycle: {}
+          name: hydra
+          ports:
+            - containerPort: 4444
+              name: hydra-public
+              protocol: TCP
+            - containerPort: 4445
+              name: hydra-admin
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 5
+            httpGet:
+              httpHeaders:
+                - name: Host
+                  value: 127.0.0.1
+              path: /health/alive
+              port: 4445
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+            runAsGroup: 65534
+            runAsNonRoot: true
+            runAsUser: 65534
+            seLinuxOptions:
+              level: s0:c123,c456
+            seccompProfile:
+              type: RuntimeDefault
+          startupProbe:
+            failureThreshold: 5
+            httpGet:
+              httpHeaders:
+                - name: Host
+                  value: 127.0.0.1
+              path: /health/ready
+              port: 4445
+            initialDelaySeconds: 1
+            periodSeconds: 1
+            successThreshold: 1
+            timeoutSeconds: 2
+          volumeMounts:
+            - mountPath: /etc/config/config.yml
+              name: hydra-config
+              readOnly: true
+              subPath: config.yml
+      initContainers: []
+      securityContext:
+        fsGroup: 65534
+        fsGroupChangePolicy: OnRootMismatch
+        runAsGroup: 65534
+        runAsNonRoot: true
+        runAsUser: 65534
+        seccompProfile:
+          type: RuntimeDefault
+      serviceAccountName: hydra
+      terminationGracePeriodSeconds: 60
+      volumes:
+        - configMap:
+            defaultMode: 0440
+            name: hydra-config
+            optional: false
+          name: hydra-config

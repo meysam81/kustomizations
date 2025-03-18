@@ -1,0 +1,8 @@
+resources:
+  - ../../base
+
+images:
+  - name: oryd/hydra
+    newTag: v2.3.0
+
+namespace: auth

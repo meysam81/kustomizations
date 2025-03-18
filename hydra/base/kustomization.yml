@@ -1,0 +1,28 @@
+configMapGenerator:
+  - name: hydra-config
+    files:
+      - config.yml=hydra-server-config.yml
+  - name: hydra-envs
+    envs:
+      - configs.env
+
+resources:
+  - deployment.yml
+  - service-admin.yml
+  - service-public.yml
+  - serviceaccount.yml
+
+images:
+  - name: oryd/hydra
+
+labels:
+  - includeSelectors: true
+    pairs:
+      app.kubernetes.io/component: hydra
+      app.kubernetes.io/instance: hydra
+      app.kubernetes.io/managed-by: Kustomize
+      app.kubernetes.io/name: hydra
+      app.kubernetes.io/part-of: hydra
+      app.kubernetes.io/version: v1.0.0
+
+namespace: auth
