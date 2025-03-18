@@ -18,7 +18,7 @@ spec:
         - args:
             - serve
             - all
-            - "--config=/etc/config/hydra.yml"
+            - "--config=/etc/hydra/config.yml"
           command:
             - hydra
           envFrom:
@@ -73,7 +73,7 @@ spec:
             successThreshold: 1
             timeoutSeconds: 2
           volumeMounts:
-            - mountPath: /etc/config/config.yml
+            - mountPath: /etc/hydra/config.yml
               name: hydra-config
               readOnly: true
               subPath: config.yml

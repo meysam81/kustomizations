@@ -27,7 +27,7 @@ configMapGenerator:
     behavior: merge
 
 resources:
-  - https://github.com/meysam81/kustomizations//hydra/overlays/default/?ref=v2.3.0
+  - https://github.com/meysam81/kustomizations//hydra/overlays/default/?ref=v2.3.1
 
 namespace: auth
 ```
