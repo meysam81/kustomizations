@@ -1,7 +1,7 @@
 configMapGenerator:
   - name: hydra-config
     files:
-      - config.yml=hydra-server-config.yml
+      - hydra-server-config.yml
   - name: hydra-envs
     envs:
       - configs.env

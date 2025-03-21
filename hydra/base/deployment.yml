@@ -76,7 +76,7 @@ spec:
             - mountPath: /etc/hydra/config.yml
               name: hydra-config
               readOnly: true
-              subPath: config.yml
+              subPath: hydra-server-config.yml
       initContainers: []
       securityContext:
         fsGroup: 65534
