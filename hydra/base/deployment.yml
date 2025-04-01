@@ -27,6 +27,16 @@ spec:
           image: oryd/hydra
           imagePullPolicy: IfNotPresent
           lifecycle: {}
+          livenessProbe:
+            failureThreshold: 5
+            httpGet:
+              httpHeaders:
+                - name: Host
+                  value: 127.0.0.1
+              path: /health/alive
+              port: 4445
+            initialDelaySeconds: 3
+            periodSeconds: 10
           name: hydra
           ports:
             - containerPort: 4444

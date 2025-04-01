@@ -24,11 +24,31 @@ spec:
             - /manager
           image: oryd/hydra-maester
           imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 5
+            httpGet:
+              httpHeaders:
+                - name: Host
+                  value: 127.0.0.1
+              path: /metrics
+              port: 8080
+            initialDelaySeconds: 3
+            periodSeconds: 10
           name: hydra-maester
           ports:
             - containerPort: 8080
               name: http
               protocol: TCP
+          readinessProbe:
+            failureThreshold: 5
+            httpGet:
+              httpHeaders:
+                - name: Host
+                  value: 127.0.0.1
+              path: /metrics
+              port: 8080
+            initialDelaySeconds: 3
+            periodSeconds: 10
           resources: {}
           securityContext:
             allowPrivilegeEscalation: false
