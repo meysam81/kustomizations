@@ -38,9 +38,9 @@ spec:
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
-                runAsGroup: 65534
+                runAsGroup: 1000
                 runAsNonRoot: true
-                runAsUser: 65534
+                runAsUser: 1000
               terminationMessagePolicy: FallbackToLogsOnError
               volumeMounts:
                 - mountPath: /usr/local/bin/restart-prowler-dashboard.sh
@@ -61,16 +61,16 @@ spec:
                   drop:
                     - ALL
                 readOnlyRootFilesystem: true
-                runAsGroup: 65534
+                runAsGroup: 1000
                 runAsNonRoot: true
-                runAsUser: 65534
+                runAsUser: 1000
               terminationMessagePolicy: FallbackToLogsOnError
               volumeMounts:
                 - mountPath: /home/prowler/output
                   name: prowler-output
           restartPolicy: Never
           securityContext:
-            fsGroup: 65534
+            fsGroup: 1000
             fsGroupChangePolicy: Always
             seccompProfile:
               type: RuntimeDefault
