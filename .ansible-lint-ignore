@@ -1,4 +1,4 @@
-# This file contains ignores rule violations for ansible-lint
+hydra/base/deployment.yml yaml[octal-values]
 kratos-admin-ui/base/deployment.yml yaml[octal-values]
 kratos/overlays/default/patch-deployment.yml yaml[octal-values]
 kratos/overlays/vm/patch-deployment.yml yaml[octal-values]
