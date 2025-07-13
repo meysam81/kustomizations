@@ -1,7 +1,7 @@
 configMapGenerator:
-  - name: kratos-config
-    files:
+  - files:
       - config.yml=kratos-server-config.yml
+    name: kratos-config
 
 resources:
   - ../../base
@@ -17,3 +17,5 @@ patches:
       name: kratos
 
 namespace: auth
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization

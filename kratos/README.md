@@ -116,7 +116,6 @@ Imagine having the following config file:
 ```yaml
 # kratos-server-config.yml
 dsn: sqlite:///var/lib/kratos/sqlite.db?_fk=true&mode=rwc&_journal_mode=WAL
-
 # ... truncated ...
 ```
 

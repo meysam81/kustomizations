@@ -1,7 +1,7 @@
 configMapGenerator:
-  - name: kratos-config
-    files:
+  - files:
       - config.yml=kratos-server-config.yml
+    name: kratos-config
 
 resources:
   - ../../base
@@ -20,28 +20,30 @@ patches:
 
 replacements:
   - source:
+      fieldPath: metadata.labels
       kind: Service
       name: kratos-admin
-      fieldPath: metadata.labels
     targets:
-      - select:
+      - fieldPaths:
+          - spec.selector.matchLabels
+        options:
+          create: true
+        select:
           kind: VMServiceScrape
           name: kratos-admin
-        fieldPaths:
-          - spec.selector.matchLabels
-        options:
-          create: true
   - source:
+      fieldPath: metadata.labels
       kind: Service
       name: kratos-courier
-      fieldPath: metadata.labels
     targets:
-      - select:
-          kind: VMServiceScrape
-          name: kratos-courier
-        fieldPaths:
+      - fieldPaths:
           - spec.selector.matchLabels
         options:
           create: true
+        select:
+          kind: VMServiceScrape
+          name: kratos-courier
 
 namespace: auth
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
