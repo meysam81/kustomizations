@@ -1,5 +1,5 @@
 resources:
-  - crds.yml
+  - https://raw.githubusercontent.com/ory/hydra-maester/refs/tags/v0.0.38/config/crd/bases/hydra.ory.sh_oauth2clients.yaml
   - clusterrole.yml
   - clusterrolebinding.yml
   - deployment.yml
