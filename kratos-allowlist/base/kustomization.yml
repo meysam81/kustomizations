@@ -1,0 +1,23 @@
+configMapGenerator:
+  - name: kratos-allowlist-envs
+    envs:
+      - configs.env
+
+resources:
+  - deployment.yml
+  - service.yml
+  - serviceaccount.yml
+
+images:
+  - name: ghcr.io/meysam81/kratos-allowlist
+
+labels:
+  - includeSelectors: true
+    includeTemplates: true
+    pairs:
+      app.kubernetes.io/component: kratos-allowlist
+      app.kubernetes.io/instance: kratos-allowlist
+      app.kubernetes.io/managed-by: Kustomize
+      app.kubernetes.io/name: kratos-allowlist
+      app.kubernetes.io/part-of: kratos-allowlist
+      app.kubernetes.io/version: v1.0.0

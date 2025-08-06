@@ -1,0 +1,34 @@
+resources:
+  - ../../base
+  - vmservicescrape.yml
+
+images:
+  - name: ghcr.io/meysam81/kratos-allowlist
+    newTag: "v1.0.0"
+
+replicas:
+  - name: kratos-allowlist
+    count: 1
+
+labels:
+  - includeSelectors: true
+    includeTemplates: true
+    pairs:
+      app.kubernetes.io/component: kratos-allowlist
+      app.kubernetes.io/instance: kratos-allowlist
+      app.kubernetes.io/managed-by: Kustomize
+      app.kubernetes.io/name: kratos-allowlist
+      app.kubernetes.io/part-of: kratos-allowlist
+      app.kubernetes.io/version: v1.0.0
+
+replacements:
+  - source:
+      kind: Service
+      fieldPath: spec.selector
+    targets:
+      - select:
+          kind: VMServiceScrape
+        fieldPaths:
+          - spec.selector.matchLabels
+        options:
+          create: true
