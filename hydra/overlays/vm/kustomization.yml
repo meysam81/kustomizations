@@ -1,0 +1,22 @@
+resources:
+  - ../../base
+  - vmservicescrape.yml
+
+images:
+  - name: oryd/hydra
+
+replacements:
+  - source:
+      fieldPath: metadata.labels
+      kind: Service
+      name: hydra-admin
+    targets:
+      - fieldPaths:
+          - spec.selector.matchLabels
+        options:
+          create: true
+        select:
+          kind: VMServiceScrape
+          name: hydra
+
+namespace: auth

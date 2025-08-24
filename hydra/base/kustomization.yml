@@ -17,6 +17,7 @@ images:
 
 labels:
   - includeSelectors: true
+    includeTemplates: true
     pairs:
       app.kubernetes.io/component: hydra
       app.kubernetes.io/instance: hydra
