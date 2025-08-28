@@ -1,3 +1,4 @@
+---
 apiVersion: operator.victoriametrics.com/v1beta1
 kind: VMServiceScrape
 metadata:
@@ -6,6 +7,6 @@ spec:
   endpoints:
     - interval: 30s
       path: /admin/metrics/prometheus
-      port: http-admin
+      port: hydra-admin
       scheme: http
       scrapeTimeout: 10s

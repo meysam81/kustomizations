@@ -1,11 +1,14 @@
+---
 apiVersion: v1
 kind: Service
 metadata:
   name: hydra-public
+  labels:
+    hydra: public
 spec:
-  type: ClusterIP
   ports:
-    - port: 80
-      targetPort: hydra-public
+    - name: hydra-public
+      port: 80
       protocol: TCP
-      name: hydra-public
+      targetPort: hydra-public
+  type: ClusterIP
