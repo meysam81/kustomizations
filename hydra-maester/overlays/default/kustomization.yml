@@ -3,6 +3,6 @@ resources:
 
 images:
   - name: oryd/hydra-maester
-    newTag: v0.0.38
+    newTag: v0.0.39
 
 namespace: auth
