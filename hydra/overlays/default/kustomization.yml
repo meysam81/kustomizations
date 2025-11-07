@@ -3,6 +3,6 @@ resources:
 
 images:
   - name: oryd/hydra
-    newTag: v2.3.0
+    newTag: v25.4.0
 
 namespace: auth
