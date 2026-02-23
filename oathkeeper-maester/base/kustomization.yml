@@ -4,7 +4,7 @@ kind: Kustomization
 
 images:
   - name: oryd/oathkeeper-maester
-    newTag: v0.1.12
+    newTag: v0.1.13
   - name: bitnami/kubectl
     newTag: 1.33.4
 
