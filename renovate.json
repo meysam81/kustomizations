@@ -11,6 +11,25 @@
       "matchManagers": [
         "github-actions"
       ]
+    },
+    {
+      "description": "Pin images by digest: a tag can be re-pushed, a digest cannot. Kustomize images become newTag: <tag>@sha256:<digest>",
+      "matchDatasources": [
+        "docker"
+      ],
+      "pinDigests": true
+    },
+    {
+      "description": "Digest updates wait 3 days, not 14: rebuilt images carry security fixes (CA bundles, runtime patches)",
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchUpdateTypes": [
+        "digest",
+        "pinDigest"
+      ],
+      "minimumReleaseAge": "3 days",
+      "minimumReleaseAgeBehaviour": "timestamp-optional"
     }
   ]
 }
