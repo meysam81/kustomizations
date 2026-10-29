@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.7.10](https://github.com/meysam81/kustomizations/compare/v2.7.9...v2.7.10) (2026-10-29)
+
+
+### CI
+
+* pin actions and tools by SHA/version, add actionlint + zizmor ([#111](https://github.com/meysam81/kustomizations/issues/111)) ([3417975](https://github.com/meysam81/kustomizations/commit/3417975fedf46aa4747db14c4dbdc702f1956eef))
+
 ## [2.2.1](https://github.com/meysam81/kustomizations/compare/v2.2.0...v2.2.1) (2025-02-27)
 
 
