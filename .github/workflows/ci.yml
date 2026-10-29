@@ -15,25 +15,27 @@ env:
   ANSIBLE_FORCE_COLOR: "1"
   PY_COLORS: "1"
 
-permissions: read-all
+permissions: {}
 
 jobs:
-  checkov:
-    if: |
-      contains(fromJson('["schedule", "pull_request", "push"]'), github.event_name)
+  workflow-lint:
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
     permissions:
       contents: read
-      security-events: write
-    runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
-      - name: Checkov GitHub Action
-        uses: bridgecrewio/checkov-action@v12
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          config_file: .checkov_config.yaml
-          output_format: cli,sarif
-          output_file_path: console,results.sarif
+          persist-credentials: false
+      - name: Lint workflows with actionlint
+        uses: docker://rhysd/actionlint:1.7.12@sha256:b1934ee5f1c509618f2508e6eb47ee0d3520686341fec936f3b79331f9315667
+        with:
+          args: -color
+      - name: Audit workflows with zizmor
+        uses: zizmorcore/zizmor-action@53290badfa369cb0bf7ad16342cb62c2fa47ac7b # v0.8.0
+        with:
+          advanced-security: false
 
   trivy:
     if: github.event_name == 'push' || github.event_name == 'pull_request'
@@ -49,16 +51,11 @@ jobs:
           - config
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Cache trivy db
-        uses: actions/cache@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          path: |
-            ~/.cache/trivy
-            ~/work/temp
-          key: ${{ runner.os }}-trivy-db-${{ hashFiles('**/trivy.yaml') }}
+          persist-credentials: false
       - name: Run Trivy vulnerability scanner in fs mode
-        uses: aquasecurity/trivy-action@master
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
         with:
           format: sarif
           ignore-unfixed: true
@@ -68,36 +65,46 @@ jobs:
           severity: CRITICAL,HIGH
           trivy-config: trivy.yaml
       - name: Upload Trivy scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@9b3254085494b55a0f7c4c2b3d2d52cc712ce370 # v4.39.1
         with:
           sarif_file: trivy-results.sarif
 
   ansible-lint:
     if: github.event_name == 'push' || github.event_name == 'pull_request'
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: Run ansible-lint
-        uses: ansible/ansible-lint@main
+        uses: ansible/ansible-lint@9bce2bfb8f4a984e6b13767bc0d6bf0a49492164 # v26.10.1
 
   release-edge:
     needs:
-      - checkov
+      - workflow-lint
       - ansible-lint
       - trivy
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     permissions:
+      contents: read
       packages: write
       id-token: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: Setup Cosign CLI
-        uses: sigstore/cosign-installer@v3
+        uses: sigstore/cosign-installer@6f9f17788090df1f26f669e9d70d6ae9567deba6 # v4.1.2
+        with:
+          # renovate: github-releases=sigstore/cosign
+          cosign-release: v2.6.5
       - name: Setup Notation CLI
-        uses: notaryproject/notation-action/setup@v1
+        uses: notaryproject/notation-action/setup@b6fee73110795d6793253c673bd723f12bcf9bbb # v1.2.2
         with:
           version: "1.1.0"
       - name: Setup Notation signing keys
@@ -109,9 +116,12 @@ jobs:
         env:
           NOTATION_KEY: ${{ secrets.NOTATION_SIGNING_KEY }}
       - name: Setup Flux CLI
-        uses: fluxcd/flux2/action@main
+        uses: fluxcd/flux2/action@3fa784edd773d56630bb9f62645e08f70c2cff0a # v2.10.0
+        with:
+          # renovate: github-releases=fluxcd/flux2
+          version: 2.10.0
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v3
+        uses: docker/login-action@81c6f93d4bc991e510b342a00b419b3bb4efc5c6 # v4.7.0
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -119,53 +129,77 @@ jobs:
       - id: push
         name: Push to ghcr OCI registry
         run: |
-          digest_url=$(flux push artifact oci://ghcr.io/${{ github.repository }}:${{ github.run_id }} \
+          digest_url=$(flux push artifact "oci://ghcr.io/${REPOSITORY}:${RUN_ID}" \
             --path=. \
-            --source=${{ github.server_url }}/${{ github.repository }} \
+            --source="${SERVER_URL}/${REPOSITORY}" \
             --revision="$(git tag --points-at HEAD)@sha1:$(git rev-parse HEAD)" \
             --annotations="org.opencontainers.image.created=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" \
             --annotations="org.opencontainers.image.description=OCI artifact containing Kustomizations" \
-            --annotations="org.opencontainers.image.documentation=${{ github.server_url }}/${{ github.repository }}" \
+            --annotations="org.opencontainers.image.documentation=${SERVER_URL}/${REPOSITORY}" \
             --annotations="org.opencontainers.image.licenses=Apache-2.0" \
             --annotations="org.opencontainers.image.revision=$(git rev-parse HEAD)" \
             --annotations="org.opencontainers.image.title=Kustomizations" \
-            --annotations="org.opencontainers.image.url=${{ github.server_url }}/${{ github.repository }}" \
+            --annotations="org.opencontainers.image.url=${SERVER_URL}/${REPOSITORY}" \
             --annotations="org.opencontainers.image.version=$(git tag --points-at HEAD)" \
             --output json | jq -r '. | .repository + "@" + .digest')
-          flux tag artifact oci://ghcr.io/${{ github.repository }}:${{ github.run_id }} --tag latest
+          flux tag artifact "oci://ghcr.io/${REPOSITORY}:${RUN_ID}" --tag latest
           echo "digest-url=$digest_url" >> "$GITHUB_OUTPUT"
+        env:
+          REPOSITORY: ${{ github.repository }}
+          SERVER_URL: ${{ github.server_url }}
+          RUN_ID: ${{ github.run_id }}
       - name: Sign artifacts with cosign
         run: |
-          cosign sign --yes ${{ steps.push.outputs.digest-url }}
+          cosign sign --yes "${DIGEST_URL}"
+        env:
+          DIGEST_URL: ${{ steps.push.outputs.digest-url }}
       - name: Sign artifacts with Notation
         run: |
-          notation sign --signature-format cose ghcr.io/${{ github.repository }}:${{ github.run_id }}
-          notation sign --signature-format cose ghcr.io/${{ github.repository }}:latest
+          notation sign --signature-format cose "ghcr.io/${REPOSITORY}:${RUN_ID}"
+          notation sign --signature-format cose "ghcr.io/${REPOSITORY}:latest"
+        env:
+          REPOSITORY: ${{ github.repository }}
+          RUN_ID: ${{ github.run_id }}
 
-  semantic-release:
+  # Opens the release PR; merging it tags vX.Y.Z and creates the GitHub release.
+  release-please:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release-please.outputs.release_created }}
+      tag_name: ${{ steps.release-please.outputs.tag_name }}
     permissions:
       contents: write
-      packages: write
       issues: write
       pull-requests: write
+    steps:
+      - id: release-please
+        name: Release please
+        uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5.0.0
+
+  # Publishes and signs the tagged tree. Runs on the push to main that merged
+  # the release PR, so the cosign identity stays ci.yml@refs/heads/main.
+  release:
+    needs: release-please
+    if: needs.release-please.outputs.release_created == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
       id-token: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          fetch-depth: 0
-      - name: Setup bun
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: latest
-      - name: Install bun deps
-        run: bun install
+          persist-credentials: false
+          ref: ${{ needs.release-please.outputs.tag_name }}
       - name: Setup Cosign CLI
-        uses: sigstore/cosign-installer@v3
+        uses: sigstore/cosign-installer@6f9f17788090df1f26f669e9d70d6ae9567deba6 # v4.1.2
+        with:
+          # renovate: github-releases=sigstore/cosign
+          cosign-release: v2.6.5
       - name: Setup Notation CLI
-        uses: notaryproject/notation-action/setup@v1
+        uses: notaryproject/notation-action/setup@b6fee73110795d6793253c673bd723f12bcf9bbb # v1.2.2
         with:
           version: "1.1.0"
       - name: Setup Notation signing keys
@@ -177,41 +211,45 @@ jobs:
         env:
           NOTATION_KEY: ${{ secrets.NOTATION_SIGNING_KEY }}
       - name: Setup Flux CLI
-        uses: fluxcd/flux2/action@main
+        uses: fluxcd/flux2/action@3fa784edd773d56630bb9f62645e08f70c2cff0a # v2.10.0
+        with:
+          # renovate: github-releases=fluxcd/flux2
+          version: 2.10.0
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v3
+        uses: docker/login-action@81c6f93d4bc991e510b342a00b419b3bb4efc5c6 # v4.7.0
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ github.token }}
-      - id: semantic-release
-        name: Release
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        run: bunx semantic-release@v24
-      - if: steps.semantic-release.outputs.version != ''
-        id: push
+      - id: push
         name: Push to ghcr OCI registry
         run: |
-          digest_url=$(flux push artifact oci://ghcr.io/${{ github.repository }}:${{ steps.semantic-release.outputs.version }} \
+          digest_url=$(flux push artifact "oci://ghcr.io/${REPOSITORY}:${RELEASE_VERSION}" \
             --path=. \
-            --source=${{ github.server_url }}/${{ github.repository }} \
-            --revision="$(git tag --points-at HEAD)@sha1:$(git rev-parse HEAD)" \
+            --source="${SERVER_URL}/${REPOSITORY}" \
+            --revision="${RELEASE_VERSION}@sha1:$(git rev-parse HEAD)" \
             --annotations="org.opencontainers.image.created=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" \
             --annotations="org.opencontainers.image.description=OCI artifact containing Kustomizations" \
-            --annotations="org.opencontainers.image.documentation=${{ github.server_url }}/${{ github.repository }}" \
+            --annotations="org.opencontainers.image.documentation=${SERVER_URL}/${REPOSITORY}" \
             --annotations="org.opencontainers.image.licenses=Apache-2.0" \
             --annotations="org.opencontainers.image.revision=$(git rev-parse HEAD)" \
             --annotations="org.opencontainers.image.title=Kustomizations" \
-            --annotations="org.opencontainers.image.url=${{ github.server_url }}/${{ github.repository }}" \
-            --annotations="org.opencontainers.image.version=$(git tag --points-at HEAD)" \
+            --annotations="org.opencontainers.image.url=${SERVER_URL}/${REPOSITORY}" \
+            --annotations="org.opencontainers.image.version=${RELEASE_VERSION}" \
             --output json | jq -r '. | .repository + "@" + .digest')
           echo "digest-url=$digest_url" >> "$GITHUB_OUTPUT"
-      - if: steps.semantic-release.outputs.version != ''
-        name: Sign artifacts with cosign
+        env:
+          REPOSITORY: ${{ github.repository }}
+          SERVER_URL: ${{ github.server_url }}
+          RELEASE_VERSION: ${{ needs.release-please.outputs.tag_name }}
+      - name: Sign artifacts with cosign
         run: |
-          cosign sign --yes ${{ steps.push.outputs.digest-url }}
-      - if: steps.semantic-release.outputs.version != ''
-        name: Sign artifacts with Notation
+          cosign sign --yes "${DIGEST_URL}"
+        env:
+          DIGEST_URL: ${{ steps.push.outputs.digest-url }}
+      - name: Sign artifacts with Notation
         run: |
-          notation sign --signature-format cose ghcr.io/${{ github.repository }}:${{ steps.semantic-release.outputs.version }}
+          notation sign --signature-format cose "ghcr.io/${REPOSITORY}:${RELEASE_VERSION}"
+        env:
+          REPOSITORY: ${{ github.repository }}
+          RELEASE_VERSION: ${{ needs.release-please.outputs.tag_name }}
