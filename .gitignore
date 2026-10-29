@@ -12,4 +12,3 @@ kratos/overlays/prod
 prowler/base/private.pem
 prowler/base/public.pem
 prowler/base/configs.env.bk
-node_modules/
