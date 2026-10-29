@@ -1,5 +1,4 @@
 .ansible-lint-ignore
-.checkov_config.yaml
 .notation
 .notation/notation.crt
 .notation/signingkeys.json

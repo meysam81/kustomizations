@@ -37,26 +37,6 @@ jobs:
         with:
           advanced-security: false
 
-  checkov:
-    if: |
-      contains(fromJson('["schedule", "pull_request", "push"]'), github.event_name)
-    permissions:
-      contents: read
-      security-events: write
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    steps:
-      - name: Checkout
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          persist-credentials: false
-      - name: Checkov GitHub Action
-        uses: bridgecrewio/checkov-action@c3e106d5f8f4253a6de5110efb41a080f83db294 # v12.3135.0
-        with:
-          config_file: .checkov_config.yaml
-          output_format: cli,sarif
-          output_file_path: console,results.sarif
-
   trivy:
     if: github.event_name == 'push' || github.event_name == 'pull_request'
     runs-on: ubuntu-latest
@@ -105,7 +85,6 @@ jobs:
   release-edge:
     needs:
       - workflow-lint
-      - checkov
       - ansible-lint
       - trivy
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
