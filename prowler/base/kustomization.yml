@@ -20,7 +20,7 @@ resources:
 
 images:
   - name: toniblyx/prowler
-    newTag: 5.7.5
+    newTag: 5.45.0@sha256:91cbe8cf1fbc8807dd2e389fbe3a0dd822b84697bb868cee1a2bd42bb6db32d7
   - name: bitnami/kubectl
     newTag: "1.33"
 
