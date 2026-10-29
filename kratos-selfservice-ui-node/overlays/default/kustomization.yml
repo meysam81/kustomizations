@@ -3,6 +3,6 @@ resources:
 
 images:
   - name: oryd/kratos-selfservice-ui-node
-    newTag: v1.3.1
+    newTag: v26.2.0@sha256:46a7bac1ad0c67c692b37d0380613fd4618fd751afac2c5314aa8d3ae77ef1f0
 
 namespace: auth
