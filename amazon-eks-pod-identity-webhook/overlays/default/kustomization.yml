@@ -3,4 +3,4 @@ resources:
 
 images:
   - name: amazon/amazon-eks-pod-identity-webhook
-    newTag: v0.6.7
+    newTag: v0.6.7@sha256:1a7f8c4bc6b10cce15de563a2bf0f4acca73cc35fbe4f57643b67b4fd2393cfd

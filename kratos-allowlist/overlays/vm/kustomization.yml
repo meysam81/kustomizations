@@ -4,7 +4,7 @@ resources:
 
 images:
   - name: ghcr.io/meysam81/kratos-allowlist
-    newTag: "v1.0.0"
+    newTag: "v1.0.0@sha256:5d4a8651264d02104985ef67377aa4596d82d2d6efdbaedeb0e85d25a71b22c9"
 
 replicas:
   - name: kratos-allowlist

@@ -10,7 +10,7 @@ resources:
 
 images:
   - name: oryd/kratos
-    newTag: v1.3.1-distroless
+    newTag: v1.3.1-distroless@sha256:aa78a59cfc1aeedc90760a4d053bc92815f4086fcce83a56b9a54f48a37604cf
 
 patches:
   - path: patch-deployment.yml
