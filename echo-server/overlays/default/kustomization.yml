@@ -3,6 +3,6 @@ resources:
 
 images:
   - name: ghcr.io/developer-friendly/echo-server
-    newTag: v0.1.0
+    newTag: v0.1.0@sha256:0e785fb262f2c235d2542de391c8b3f11cb992438497c0aa459ccf3732dd73a2
 
 namespace: default

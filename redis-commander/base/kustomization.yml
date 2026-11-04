@@ -9,7 +9,7 @@ configMapGenerator:
 
 images:
   - name: ghcr.io/joeferner/redis-commander
-    newTag: 0.9.1
+    newTag: 0.9.1@sha256:2c2404630820613c7e540ec26a8d1dd24b671d1a80373c3dfad287c7a1374ad1
 
 labels:
   - includeSelectors: true
