@@ -20,7 +20,7 @@ resources:
 
 images:
   - name: toniblyx/prowler
-    newTag: 5.7.5
+    newTag: 5.45.0@sha256:91cbe8cf1fbc8807dd2e389fbe3a0dd822b84697bb868cee1a2bd42bb6db32d7
   - name: ghcr.io/licenseware/kubectl
     newTag: v1.35.3@sha256:9ac85c669711f22ee2b784adb23b82ffd029497458cce814026774fe5fafa793
 
