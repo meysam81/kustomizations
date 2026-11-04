@@ -4,7 +4,6 @@ kind: Kustomization
 
 images:
   - name: oryd/oathkeeper
-  - name: bitnami/kubectl
 
 labels:
   - includeSelectors: true
