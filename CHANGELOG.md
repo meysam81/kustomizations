@@ -1,5 +1,21 @@
 # Changelog
 
+## [3.0.0](https://github.com/meysam81/kustomizations/compare/v2.7.9...v3.0.0) (2026-11-04)
+
+
+### ⚠ BREAKING CHANGES
+
+* config.json is now a map of profile slugs holding kratosAdminBaseURL and kratosPublicBaseURL. reverseProxy has no equivalent. A config in the old flat format shows three bogus profiles and no Kratos endpoints.
+
+### Bug Fixes
+
+* replace removed kubectl image, run ory-admin-ui ([#117](https://github.com/meysam81/kustomizations/issues/117)) ([173c739](https://github.com/meysam81/kustomizations/commit/173c739af39400243687119986c9f5e1f53cf441))
+
+
+### CI
+
+* pin actions and tools by SHA/version, add actionlint + zizmor ([#111](https://github.com/meysam81/kustomizations/issues/111)) ([3417975](https://github.com/meysam81/kustomizations/commit/3417975fedf46aa4747db14c4dbdc702f1956eef))
+
 ## [2.2.1](https://github.com/meysam81/kustomizations/compare/v2.2.0...v2.2.1) (2025-02-27)
 
 
