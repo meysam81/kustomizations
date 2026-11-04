@@ -4,7 +4,7 @@ resources:
   - deployment.yml
 
 images:
-  - name: ghcr.io/meysam81/kratos-admin-ui
+  - name: ghcr.io/licenseware/ory-admin-ui
 
 configMapGenerator:
   - name: kratos-admin-ui-envs

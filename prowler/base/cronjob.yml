@@ -32,7 +32,7 @@ spec:
               envFrom:
                 - configMapRef:
                     name: prowler-envs
-              image: bitnami/kubectl
+              image: ghcr.io/licenseware/kubectl
               name: restart-prowler-dashboard
               securityContext:
                 allowPrivilegeEscalation: false

@@ -11,8 +11,6 @@ resources:
 images:
   - name: oryd/oathkeeper
     newTag: v0.40.9-distroless
-  - name: bitnami/kubectl
-    newTag: 1.33.4
 
 patches:
   - path: patch-deployment.yml

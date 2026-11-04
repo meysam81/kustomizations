@@ -2,7 +2,7 @@ resources:
   - ../../base
 
 images:
-  - name: ghcr.io/developer-friendly/kratos-admin-ui
-    newTag: v2.6.0
+  - name: ghcr.io/licenseware/ory-admin-ui
+    newTag: v0.4.0@sha256:f2d81cd6b94c6b2bfd5ce9a498794ac39f261099c9f2e173ab25239d77963e64
 
 namespace: auth

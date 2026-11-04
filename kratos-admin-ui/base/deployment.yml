@@ -10,7 +10,7 @@ spec:
         - envFrom:
             - configMapRef:
                 name: kratos-admin-ui-envs
-          image: ghcr.io/meysam81/kratos-admin-ui
+          image: ghcr.io/licenseware/ory-admin-ui
           livenessProbe:
             failureThreshold: 3
             httpGet:

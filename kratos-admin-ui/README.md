@@ -1,13 +1,16 @@
 # Kratos Admin UI
 
+Runs [ory-admin-ui](https://github.com/licenseware/ory-admin-ui).
+
 ## Usage
 
 ```ini
 # config.json
 {
-  "kratosAdminURL": "http://localhost:4435",
-  "kratosPublicURL": "http://localhost:4430",
-  "reverseProxy": false
+  "local": {
+    "kratosAdminBaseURL": "http://localhost:4435",
+    "kratosPublicBaseURL": "http://localhost:4430"
+  }
 }
 ```
 
@@ -21,5 +24,5 @@ configMapGenerator:
     behavior: replace
 
 resources:
-  - github.com/meysam81/kustomizations//kratos-admin-ui/overlays/default?ref=v1.7.2&timeout=5m
+  - github.com/meysam81/kustomizations//kratos-admin-ui/overlays/default?ref=<tag>&timeout=5m
 ```
