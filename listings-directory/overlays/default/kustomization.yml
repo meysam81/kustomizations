@@ -3,6 +3,6 @@ resources:
 
 images:
   - name: ghcr.io/meysam81/listings-directory
-    newTag: v1.2.4
+    newTag: v1.2.4@sha256:8df55cf509d68a26788272ad29f4e8f3be0d34c4b82ff2a4400c620271e068d8
 
 namespace: default

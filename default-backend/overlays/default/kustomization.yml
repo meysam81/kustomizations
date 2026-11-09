@@ -3,6 +3,6 @@ resources:
 
 images:
   - name: ghcr.io/meysam81/default-backend
-    newTag: v1.1.5
+    newTag: v1.1.5@sha256:114c6e8a2653eb069d1d709f60f155d24303c9d957460977ad8d5a031cccc331
 
 namespace: default

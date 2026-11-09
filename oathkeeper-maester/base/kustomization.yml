@@ -4,7 +4,7 @@ kind: Kustomization
 
 images:
   - name: oryd/oathkeeper-maester
-    newTag: v0.1.14
+    newTag: v0.1.14@sha256:0942e9fe9b1aeaf03e1459ac687aa47c912b39b528b8c7a21ad1611501674bd5
   - name: ghcr.io/licenseware/kubectl
     newTag: v1.35.3@sha256:9ac85c669711f22ee2b784adb23b82ffd029497458cce814026774fe5fafa793
 
