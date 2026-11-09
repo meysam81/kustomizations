@@ -1,5 +1,28 @@
 # Changelog
 
+## [2.7.10](https://github.com/meysam81/kustomizations/compare/v2.7.9...v2.7.10) (2026-11-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* config.json is now a map of profile slugs holding kratosAdminBaseURL and kratosPublicBaseURL. reverseProxy has no equivalent. A config in the old flat format shows three bogus profiles and no Kratos endpoints.
+
+### Bug Fixes
+
+* **hydra-maester:** vendor the OAuth2Client CRD ([#120](https://github.com/meysam81/kustomizations/issues/120)) ([6f14fd3](https://github.com/meysam81/kustomizations/commit/6f14fd38bc0df7f9f9771cd3733fb973f80a7ce5))
+* replace removed kubectl image, run ory-admin-ui ([#117](https://github.com/meysam81/kustomizations/issues/117)) ([173c739](https://github.com/meysam81/kustomizations/commit/173c739af39400243687119986c9f5e1f53cf441))
+
+
+### Build & Dependencies
+
+* **deps:** pin dependencies ([#115](https://github.com/meysam81/kustomizations/issues/115)) ([91c1360](https://github.com/meysam81/kustomizations/commit/91c1360badadd7bd256c0863a8ca9e4d0b354168))
+* **deps:** update dependency sigstore/cosign to v3 ([#118](https://github.com/meysam81/kustomizations/issues/118)) ([f5106cf](https://github.com/meysam81/kustomizations/commit/f5106cf578f68f33f43b146180279110e4298a5e))
+
+
+### CI
+
+* pin actions and tools by SHA/version, add actionlint + zizmor ([#111](https://github.com/meysam81/kustomizations/issues/111)) ([3417975](https://github.com/meysam81/kustomizations/commit/3417975fedf46aa4747db14c4dbdc702f1956eef))
+
 ## [2.2.1](https://github.com/meysam81/kustomizations/compare/v2.2.0...v2.2.1) (2025-02-27)
 
 
