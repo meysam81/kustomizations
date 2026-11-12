@@ -18,18 +18,6 @@
         "docker"
       ],
       "pinDigests": true
-    },
-    {
-      "description": "Digest updates wait 3 days, not 14: rebuilt images carry security fixes (CA bundles, runtime patches)",
-      "matchDatasources": [
-        "docker"
-      ],
-      "matchUpdateTypes": [
-        "digest",
-        "pinDigest"
-      ],
-      "minimumReleaseAge": "3 days",
-      "minimumReleaseAgeBehaviour": "timestamp-optional"
     }
   ]
 }
