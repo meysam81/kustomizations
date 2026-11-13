@@ -3,6 +3,6 @@ resources:
 
 images:
   - name: oryd/hydra
-    newTag: v2.3.0@sha256:b94007e19a1f7f78157e7f4ea340da8a55b5f104a0f1198755c256f38ef32b4b
+    newTag: v26.2.0@sha256:ff67c7fb5f95074fa53374d41151713554960504b340cd3f95b09e65deaea2a9
 
 namespace: auth
