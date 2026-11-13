@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.7.11](https://github.com/meysam81/kustomizations/compare/v2.7.10...v2.7.11) (2026-11-13)
+
+
+### Chores
+
+* **pre-commit:** freeze hooks to commit SHAs ([#121](https://github.com/meysam81/kustomizations/issues/121)) ([4ce3d4c](https://github.com/meysam81/kustomizations/commit/4ce3d4ce75a36ec89c0cefb999c55699d96dc223))
+* **renovate:** take the 3-day digest wait from the shared preset ([#122](https://github.com/meysam81/kustomizations/issues/122)) ([92f79dc](https://github.com/meysam81/kustomizations/commit/92f79dc92cfba7bb3d395b0e1dacedb00fbc393b))
+
 ## [2.7.10](https://github.com/meysam81/kustomizations/compare/v2.7.9...v2.7.10) (2026-11-09)
 
 
