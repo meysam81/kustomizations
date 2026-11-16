@@ -59,13 +59,13 @@ repos:
         args:
           - --autofix
   - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
-    rev: 7fe32563734d34c2242097e92caba89e4ec55b9a # frozen: v9.21.0
+    rev: 1f1ac45c93d1c2ce36b71330252c489a5f4f2724 # frozen: v9.27.0
     hooks:
       - id: commitlint
         language: node
         stages: [commit-msg]
         additional_dependencies: ["@commitlint/config-conventional@21.2.4"]
   - repo: https://github.com/rhysd/actionlint
-    rev: 03d0035246f3e81f36aed592ffb4bebf33a03106 # frozen: v1.7.7
+    rev: 914e7df21a07ef503a81201c76d2b11c789d3fca # frozen: v1.7.12
     hooks:
       - id: actionlint
